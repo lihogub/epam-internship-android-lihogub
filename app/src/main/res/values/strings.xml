@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">epam-internship-android-lihogub</string>
+    <string name="big_blue_button">Big Blue Button</string>
+    <string name="hello_world_its_oleg_s_app">Hello World, its Oleg\'s app!</string>
 </resources>

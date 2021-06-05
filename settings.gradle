@@ -1,0 +1,2 @@
+rootProject.name = "epam-internship-android-lihogub"
+include ':app'

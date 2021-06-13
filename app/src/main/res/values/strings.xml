@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Meal App</string>
+    <string name="meal_list">Meal List</string>
+    <string name="beef_image">Beef image</string>
+    <string name="lamb_image">Lamb image</string>
+    <string name="dessert_image">Dessert image</string>
+    <string name="pasta_image">Pasta image</string>
+    <string name="miscellaneous_image">Miscellaneous image</string>
+    <string name="chiken_image">Chiken image</string>
+    <string name="meal_text">Soy-Glazed Meatloaves with Wasabi Mashed Potatoes &amp; Roasted Carrots</string>
+    <string name="steak_text">Steak Diane</string>
+    <string name="japaneese">JAPANEESE</string>
+    <string name="teriyaki_chicken_casserole">Teriyaki Chicken Casserole</string>
+    <string name="meat">Meat</string>
+    <string name="casserole">Casserole</string>
+    <string name="ingridients">INGRIDIENTS</string>
+    <string name="chicken_recipe"><![CDATA[Soy sauce - &#190; cup\nWater - &#189; cup\nBrown sugar - &#188; cup\nGround ginger - &#189; teaspoon\nMinced garlic - &#189; teaspoon\nCornstarch - 4 tablespoons\nChicken breasts - 2\nStir-fry vegetables - 1 (12 oz.)\nBrown rice - 3 cups]]></string>
 </resources>

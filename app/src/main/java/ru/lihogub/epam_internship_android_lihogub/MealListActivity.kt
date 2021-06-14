@@ -11,13 +11,13 @@ class MealListActivity : AppCompatActivity() {
 
         val mealItem: LinearLayout = findViewById(R.id.meal_item)
         mealItem.setOnClickListener{
-            val dish = API.getRecipeById(52992) // id was taken from real API service
+            val dish = Api.getRecipeById(52992) // id was taken from real API service
             startActivity(MealDetailsActivity.getIntent(this, dish.name, dish.cuisine.uppercase(), dish.instruction))
         }
 
         val steakItem: LinearLayout = findViewById(R.id.steak_item)
         steakItem.setOnClickListener{
-            val dish = API.getRecipeById(52935) // id was taken from real API service
+            val dish = Api.getRecipeById(52935) // id was taken from real API service
             startActivity(MealDetailsActivity.getIntent(this, dish.name, dish.cuisine.uppercase(), dish.instruction))
         }
     }

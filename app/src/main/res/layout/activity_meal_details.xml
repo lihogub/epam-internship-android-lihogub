@@ -14,8 +14,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="@dimen/meal_details_top_image_width"
+                android:layout_height="@dimen/meal_details_top_image_height"
                 android:scaleType="centerCrop"
                 android:layout_gravity="top"
                 android:src="@drawable/chicken_details"/>
@@ -24,7 +24,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="33dp"
+                android:paddingTop="32dp"
                 android:background="@color/white">
 
                 <TextView

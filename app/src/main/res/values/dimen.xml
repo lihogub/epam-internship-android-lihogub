@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- meal_horizontal_list_item -->
+    <dimen name="meal_horizontal_list_item_width">64dp</dimen>
+    <dimen name="meal_horizontal_list_item_height">64dp</dimen>
+    <dimen name="meal_horizontal_list_item_margin_start">4dp</dimen>
+    <dimen name="meal_horizontal_list_item_margin_end">4dp</dimen>
+    <!-- meal_horizontal_list_item_image -->
+    <dimen name="meal_horizontal_list_item_image_width">48dp</dimen>
+    <dimen name="meal_horizontal_list_item_image_height">48dp</dimen>
+    <!-- meal_vertical_list_item -->
+    <dimen name="meal_vertical_list_item_width">match_parent</dimen>
+    <dimen name="meal_vertical_list_item_height">118dp</dimen>
+    <dimen name="meal_vertical_list_item_padding">12dp</dimen>
+    <!-- meal_vertical_list_item_image -->
+    <dimen name="meal_vertical_list_item_image_width">100dp</dimen>
+    <dimen name="meal_vertical_list_item_image_height">100dp</dimen>
+    <dimen name="meal_vertical_list_item_image_margin_end">6dp</dimen>
+    <!-- meal_vertical_list_item_text -->
+    <dimen name="meal_vertical_list_item_text_width">match_parent</dimen>
+    <dimen name="meal_vertical_list_item_text_height">100dp</dimen>
+    <!-- meal_details_top_image -->
+    <dimen name="meal_details_top_image_width">match_parent</dimen>
+    <dimen name="meal_details_top_image_height">300dp</dimen>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="meal_list_toolbar">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="meal_horizontal_list_item">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/blue_light</item>
+    </style>
+    <style name="meal_horizontal_list_item.active">
+        <item name="cardBackgroundColor">@color/pink</item>
+    </style>
+    <style name="meal_vertical_list_item">
+        <item name="background">@color/white</item>
+    </style>
+    <style name="meal_vertical_list_item_text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center_vertical|center</item>
+    </style>
+    <style name="meal_details_cuisine_text">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="meal_details_name_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="meal_details_tag">
+        <item name="android:background">@color/blue_light</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="meal_details_ingridients_title_text">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="meal_details_ingridients_content_text">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

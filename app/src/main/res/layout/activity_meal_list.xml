@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MealListActivity"
+    android:background="@color/white_darker">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolBar.textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_list"
+            android:gravity="center"
+            style="@style/meal_list_toolbar" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <HorizontalScrollView
+        android:id="@+id/meal_horizontal_list"
+        android:background="@color/white_darker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/meal_horizontal_list_padding_top"
+        android:paddingBottom="@dimen/meal_horizontal_list_padding_bottom"
+        android:paddingStart="@dimen/meal_horizontal_list_padding_start"
+        android:paddingEnd="@dimen/meal_horizontal_list_padding_end"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/beef_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item.active">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/beef"
+                    android:contentDescription="@string/beef_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dessert_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/dessert"
+                    android:contentDescription="@string/dessert_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pasta_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/pasta"
+                    android:contentDescription="@string/pasta_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/miscellaneous_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/miscellaneous"
+                    android:contentDescription="@string/miscellaneous_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/lamb_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/lamb"
+                    android:contentDescription="@string/lamb_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/chicken_type"
+                android:layout_width="@dimen/meal_horizontal_list_item_width"
+                android:layout_height="@dimen/meal_horizontal_list_item_height"
+                android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
+                android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+                style="@style/meal_horizontal_list_item">
+
+                <ImageView
+                    android:layout_width="@dimen/meal_horizontal_list_item_image_width"
+                    android:layout_height="@dimen/meal_horizontal_list_item_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/chicken"
+                    android:contentDescription="@string/chiken_image" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/meal_horizontal_list">
+
+        <LinearLayout
+            style="@style/meal_vertical_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/meal_vertical_list_item_height"
+            android:padding="@dimen/meal_vertical_list_item_padding"
+            android:id="@+id/meal_item">
+
+            <ImageView
+                android:layout_width="@dimen/meal_vertical_list_item_image_width"
+                android:layout_height="@dimen/meal_vertical_list_item_image_height"
+                android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
+                android:src="@drawable/meal_preview" />
+
+            <TextView
+                style="@style/meal_vertical_list_item_text"
+                android:layout_height="@dimen/meal_vertical_list_item_text_height"
+                android:text="@string/meal_text"
+                android:layout_width="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/meal_vertical_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/meal_vertical_list_item_height"
+            android:padding="@dimen/meal_vertical_list_item_padding"
+            android:id="@+id/steak_item">
+
+            <ImageView
+                android:layout_width="@dimen/meal_vertical_list_item_image_width"
+                android:layout_height="@dimen/meal_vertical_list_item_image_height"
+                android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
+                android:src="@drawable/steak_preview" />
+
+            <TextView
+                style="@style/meal_vertical_list_item_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/meal_vertical_list_item_text_height"
+                android:text="@string/steak_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/meal_vertical_list_item"
+            android:layout_height="@dimen/meal_vertical_list_item_height"
+            android:padding="@dimen/meal_vertical_list_item_padding"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/meal_vertical_list_item_image_width"
+                android:layout_height="@dimen/meal_vertical_list_item_image_height"
+                android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
+                android:src="@drawable/meal_preview" />
+
+            <TextView
+                style="@style/meal_vertical_list_item_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/meal_vertical_list_item_text_height"
+                android:text="@string/meal_text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

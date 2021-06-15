@@ -161,7 +161,7 @@
 
         <LinearLayout
             style="@style/meal_vertical_list_item"
-            android:layout_width="@dimen/meal_vertical_list_item_width"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/meal_vertical_list_item_height"
             android:padding="@dimen/meal_vertical_list_item_padding"
             android:id="@+id/meal_item">
@@ -171,16 +171,18 @@
                 android:layout_height="@dimen/meal_vertical_list_item_image_height"
                 android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
                 android:src="@drawable/meal_preview" />
+
             <TextView
                 style="@style/meal_vertical_list_item_text"
-                android:layout_width="@dimen/meal_vertical_list_item_text_width"
                 android:layout_height="@dimen/meal_vertical_list_item_text_height"
-                android:text="@string/meal_text" />
+                android:text="@string/meal_text"
+                android:layout_width="match_parent" />
+
         </LinearLayout>
 
         <LinearLayout
             style="@style/meal_vertical_list_item"
-            android:layout_width="@dimen/meal_vertical_list_item_width"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/meal_vertical_list_item_height"
             android:padding="@dimen/meal_vertical_list_item_padding"
             android:id="@+id/steak_item">
@@ -190,29 +192,33 @@
                 android:layout_height="@dimen/meal_vertical_list_item_image_height"
                 android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
                 android:src="@drawable/steak_preview" />
+
             <TextView
                 style="@style/meal_vertical_list_item_text"
-                android:layout_width="@dimen/meal_vertical_list_item_text_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/meal_vertical_list_item_text_height"
                 android:text="@string/steak_text" />
+
         </LinearLayout>
 
         <LinearLayout
             style="@style/meal_vertical_list_item"
-            android:layout_width="@dimen/meal_vertical_list_item_width"
             android:layout_height="@dimen/meal_vertical_list_item_height"
-            android:padding="@dimen/meal_vertical_list_item_padding">
+            android:padding="@dimen/meal_vertical_list_item_padding"
+            android:layout_width="match_parent">
 
             <ImageView
                 android:layout_width="@dimen/meal_vertical_list_item_image_width"
                 android:layout_height="@dimen/meal_vertical_list_item_image_height"
                 android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
                 android:src="@drawable/meal_preview" />
+
             <TextView
                 style="@style/meal_vertical_list_item_text"
-                android:layout_width="@dimen/meal_vertical_list_item_text_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/meal_vertical_list_item_text_height"
                 android:text="@string/meal_text" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -83,8 +83,8 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingTop="12dp"
+                    android:layout_marginTop="@dimen/meal_details_ingridients_margin_top"
+                    android:paddingTop="@dimen/meal_details_ingridients_padding_top"
                     android:background="@color/blue_light">
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:layout_margin="@dimen/meal_details_ingridients_content_text_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                       style="@style/meal_details_ingridients_content_text"
+                        style="@style/meal_details_ingridients_content_text"
                         android:text="@string/chicken_recipe"/>
 
                 </LinearLayout>

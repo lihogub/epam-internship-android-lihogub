@@ -21,10 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/meal_list"
-            android:textAlignment="center"
             android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            style="@style/meal_list_toolbar" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -33,10 +31,10 @@
         android:background="@color/white_darker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
+        android:paddingTop="@dimen/meal_horizontal_list_padding_top"
+        android:paddingBottom="@dimen/meal_horizontal_list_padding_bottom"
+        android:paddingStart="@dimen/meal_horizontal_list_padding_start"
+        android:paddingEnd="@dimen/meal_horizontal_list_padding_end"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

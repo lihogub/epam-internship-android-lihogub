@@ -8,7 +8,7 @@ class HostActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.activityHostContainer, HostFragment())
+            .replace(R.id.activityHostContainer, HostFragment.newInstance())
             .commit()
     }
 }

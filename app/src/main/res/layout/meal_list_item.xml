@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item"
+    style="@style/meal_vertical_list_item"
+    android:layout_height="@dimen/meal_vertical_list_item_height"
+    android:padding="@dimen/meal_vertical_list_item_padding"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/list_item_image"
+        android:layout_width="@dimen/meal_vertical_list_item_image_width"
+        android:layout_height="@dimen/meal_vertical_list_item_image_height"
+        android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
+        android:src="@drawable/meal_preview" />
+
+    <TextView
+        android:id="@+id/list_item_text"
+        style="@style/meal_vertical_list_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/meal_vertical_list_item_text_height"
+        android:text="@string/meal_text" />
+
+</LinearLayout>

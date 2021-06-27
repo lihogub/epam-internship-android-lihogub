@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class MealCategoryAdapter(private var lastCategory: Int, private val categoryList: List<Category>):
-    RecyclerView.Adapter<MealCategoryHolder>(){
+class MealCategoryAdapter: RecyclerView.Adapter<MealCategoryHolder>(){
+    var categoryList = listOf<Category>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealCategoryHolder {
         val categoryItem = LayoutInflater
             .from(parent.context)
@@ -19,12 +20,14 @@ class MealCategoryAdapter(private var lastCategory: Int, private val categoryLis
 
     override fun getItemCount(): Int = categoryList.size
 
+    fun setPosition(position: Int) {
+        categoryList.forEach{ c -> c.active = (c.id == position) }
+        notifyDataSetChanged()
+    }
+
     private val onCategoryClickListener: OnCategoryClickListener = object : OnCategoryClickListener {
         override fun onClick(category: Category) {
-            categoryList[lastCategory].active = false
-            categoryList[category.id].active = true
-            lastCategory = category.id
-            notifyDataSetChanged()
+            setPosition(category.id)
         }
     }
 }

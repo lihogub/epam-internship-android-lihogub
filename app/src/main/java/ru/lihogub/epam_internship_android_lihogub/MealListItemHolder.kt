@@ -3,6 +3,7 @@ package ru.lihogub.epam_internship_android_lihogub
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class MealListItemHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -11,7 +12,7 @@ class MealListItemHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bind(dish: Dish, clickListener: OnItemClickListener) {
         dishTitle.text = dish.name
-        dishImage.setImageResource(dish.image)
+        dishImage.setBackgroundResource(dish.image)
         itemView.setOnClickListener{
             clickListener.onClick(dish)
         }

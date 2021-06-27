@@ -2,12 +2,12 @@
     android:id="@+id/category_list_item_card"
     android:layout_width="@dimen/meal_horizontal_list_item_width"
     android:layout_height="@dimen/meal_horizontal_list_item_height"
-    android:layout_marginStart="@dimen/meal_horizontal_list_item_margin_start"
-    android:layout_marginEnd="@dimen/meal_horizontal_list_item_margin_end"
+    android:layout_margin="4dp"
     style="@style/meal_horizontal_list_item">
 
     <ImageView
         android:id="@+id/category_list_item_image"
+        android:src="@drawable/beef"
         android:layout_width="@dimen/meal_horizontal_list_item_image_width"
         android:layout_height="@dimen/meal_horizontal_list_item_image_height"
         android:layout_gravity="center" />

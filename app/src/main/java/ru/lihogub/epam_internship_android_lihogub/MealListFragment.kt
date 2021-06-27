@@ -28,9 +28,8 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
             )
         )
 
-        var lastActiveCategory = 0
         val categoryList = listOf(
-            Category(0, true, R.drawable.beef),
+            Category(0, false, R.drawable.beef),
             Category(1, false, R.drawable.dessert),
             Category(2, false, R.drawable.pasta),
             Category(3, false, R.drawable.miscellaneous),
@@ -39,7 +38,8 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         )
 
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_rv)
-        val categoryAdapter = MealCategoryAdapter(0, categoryList)
+        val categoryAdapter = MealCategoryAdapter()
+        categoryAdapter.categoryList = categoryList
         categoryRecyclerView.layoutManager = LinearLayoutManager(context)
             .apply { orientation = LinearLayoutManager.HORIZONTAL }
         categoryRecyclerView.adapter = categoryAdapter

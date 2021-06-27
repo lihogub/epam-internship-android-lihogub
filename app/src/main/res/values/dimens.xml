@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="meal_list_item_margin">12dp</dimen>
+    <dimen name="meal_list_item_image_corner_radius">10dp</dimen>
+    <dimen name="meal_list_category_rv_margin">8dp</dimen>
+    <dimen name="meal_list_card_view_margin">8dp</dimen>
+    <dimen name="meal_list_card_view_corner_radius">20dp</dimen>
+</resources>

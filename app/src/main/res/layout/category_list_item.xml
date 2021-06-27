@@ -2,7 +2,7 @@
     android:id="@+id/category_list_item_card"
     android:layout_width="@dimen/meal_horizontal_list_item_width"
     android:layout_height="@dimen/meal_horizontal_list_item_height"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/category_list_item_margin"
     style="@style/meal_horizontal_list_item">
 
     <ImageView

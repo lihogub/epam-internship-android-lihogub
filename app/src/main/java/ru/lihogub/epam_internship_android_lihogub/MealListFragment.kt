@@ -6,18 +6,43 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<LinearLayout>(R.id.meal_item).setOnClickListener{
-            val dish = Api.getRecipeById(52992) // id was taken from real API service
-            openMealDetailsFragment(dish)
-        }
-        view.findViewById<LinearLayout>(R.id.steak_item).setOnClickListener{
-            val dish = Api.getRecipeById(52935) // id was taken from real API service
-            openMealDetailsFragment(dish)
-        }
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
+        val mealListAdapter = MealListAdapter(
+            object : OnItemClickListener {
+                override fun onClick(dish: Dish) = openMealDetailsFragment(dish)
+            }
+        )
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = mealListAdapter
+        mealListAdapter.list.addAll(
+            listOf(
+                Api.getRecipeById(52992),
+                Api.getRecipeById(52935)
+            )
+        )
+
+        val categoryList = listOf(
+            Category(0, false, R.drawable.beef),
+            Category(1, false, R.drawable.dessert),
+            Category(2, false, R.drawable.pasta),
+            Category(3, false, R.drawable.miscellaneous),
+            Category(4, false, R.drawable.lamb),
+            Category(5, false, R.drawable.chicken)
+        )
+
+        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_rv)
+        val categoryAdapter = MealCategoryAdapter()
+        categoryAdapter.categoryList = categoryList
+        categoryRecyclerView.layoutManager = LinearLayoutManager(context)
+            .apply { orientation = LinearLayoutManager.HORIZONTAL }
+        categoryRecyclerView.adapter = categoryAdapter
     }
 
     private fun openMealDetailsFragment(dish: Dish) {

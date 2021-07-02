@@ -25,7 +25,7 @@ class MealCategoryAdapter: RecyclerView.Adapter<MealCategoryHolder>(){
         notifyDataSetChanged()
     }
 
-    private val onCategoryClickListener: OnCategoryClickListener = object : OnCategoryClickListener {
+    var onCategoryClickListener: OnCategoryClickListener = object : OnCategoryClickListener {
         override fun onClick(category: Category) {
             setPosition(category.id)
         }

@@ -5,6 +5,6 @@
     <dimen name="meal_list_category_rv_margin">8dp</dimen>
     <dimen name="meal_list_card_view_margin">8dp</dimen>
     <dimen name="meal_list_card_view_corner_radius">20dp</dimen>
-    <dimen name="meal_list_item_margin">12dp</dimen>
     <dimen name="category_list_item_margin">4dp</dimen>
+    <dimen name="meal_details_tag_margin">4dp</dimen>
 </resources>

@@ -29,7 +29,7 @@ fun MealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
         )
             .filter { pair -> pair.first.isNotEmpty() }
             .map{ pair -> pair.first + " " + pair.second }
-            .reduceRight { s, acc -> acc.plus(s).plus("\n") },
+            .reduceRight{ s, acc -> acc.plus("\n").plus(s) },
         thumbUrl = thumbUrl,
         youtubeUrl = youtubeUrl
     )

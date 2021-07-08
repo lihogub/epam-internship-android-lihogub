@@ -27,7 +27,7 @@ fun MealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
             ingredient19 to measure19,
             ingredient20 to measure20
         )
-            .filter { pair -> pair.first.isNotEmpty() }
+            .filter { pair -> pair.first != null && pair.first.isNotEmpty() }
             .map{ pair -> pair.first + " " + pair.second }
             .reduceRight{ s, acc -> acc.plus("\n").plus(s) },
         thumbUrl = thumbUrl,

@@ -65,7 +65,7 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentHostContainer,
-                MealDetailsFragment.newInstance(mealListItem)
+                MealDetailsFragment.newInstance(mealListItem.id)
             )
             .addToBackStack(null)
             .commit()

@@ -60,6 +60,11 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        tagAdapter = null
+    }
+
     companion object {
         private const val ID = "ID"
         fun newInstance(id: Int) = MealDetailsFragment().apply {

@@ -12,30 +12,36 @@ import retrofit2.Response
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView(view)
+    }
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+    private fun initView(view: View) {
+        val mealListRecyclerView = view.findViewById<RecyclerView>(R.id.rv)
+        val categoryListRecyclerView = view.findViewById<RecyclerView>(R.id.category_rv)
 
         val mealListAdapter = MealListAdapter(
             object : OnItemClickListener {
                 override fun onClick(mealListItem: MealListItem) = openMealDetailsFragment(mealListItem)
             }
         )
-        recyclerView.adapter = mealListAdapter
+        mealListRecyclerView.adapter = mealListAdapter
+        mealListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_rv)
-        categoryRecyclerView.layoutManager = LinearLayoutManager(context)
-            .apply { orientation = LinearLayoutManager.HORIZONTAL }
-
-        val categoryAdapter = MealCategoryAdapter()
-        categoryRecyclerView.adapter = categoryAdapter
-        categoryAdapter.onCategoryClickListener = object : OnCategoryClickListener {
+        val mealCategoryAdapter = MealCategoryAdapter()
+        mealCategoryAdapter.onCategoryClickListener = object : OnCategoryClickListener {
             override fun onClick(category: Category) {
                 openCategory(mealListAdapter, category)
-                categoryAdapter.setPosition(category.id)
+                mealCategoryAdapter.setPosition(category.id)
             }
         }
+        categoryListRecyclerView.adapter = mealCategoryAdapter
+        categoryListRecyclerView.layoutManager = LinearLayoutManager(context)
+            .apply { orientation     = LinearLayoutManager.HORIZONTAL }
 
+        loadCategories(mealCategoryAdapter)
+    }
+
+    private fun loadCategories(categoryAdapter: MealCategoryAdapter) {
         Api.mealApi.getCategoryList().enqueue(object : Callback<CategoryList>{
             override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
                 categoryAdapter.categoryList = response.body()?.categories ?: listOf()
@@ -48,7 +54,7 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         })
     }
 
-    fun openCategory(mealListAdapter: MealListAdapter, category: Category) {
+    private fun openCategory(mealListAdapter: MealListAdapter, category: Category) {
         Api.mealApi.getMealList(category.name).enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 mealListAdapter.list = response.body()?.meals ?: listOf()

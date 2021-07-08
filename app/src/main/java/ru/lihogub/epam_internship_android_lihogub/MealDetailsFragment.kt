@@ -15,7 +15,10 @@ import retrofit2.Response
 class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView(view)
+    }
 
+    private fun initView(view: View) {
         val tagRecyclerView = view.findViewById<RecyclerView>(R.id.tag_rv)
         tagRecyclerView.layoutManager = LinearLayoutManager(context)
             .apply{ orientation = LinearLayoutManager.HORIZONTAL }
@@ -23,6 +26,10 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         val tagAdapter = MealDetailsTagAdapter()
         tagRecyclerView.adapter = tagAdapter
 
+        loadMealDetails(view, tagAdapter)
+    }
+
+    private fun loadMealDetails(view: View, tagAdapter: MealDetailsTagAdapter) {
         Api.mealApi.getMealDetailsList(arguments?.getInt(ID) ?: 0).enqueue(object : Callback<MealDetailsList> {
             override fun onResponse(call: Call<MealDetailsList>, response: Response<MealDetailsList>) {
                 val mealDetailsUIModel = response.body()?.meals?.first()?.toMealDetailsUIModel()

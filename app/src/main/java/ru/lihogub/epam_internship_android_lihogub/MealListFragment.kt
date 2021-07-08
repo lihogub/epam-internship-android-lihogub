@@ -31,7 +31,7 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.onCategoryClickListener = object : OnCategoryClickListener {
             override fun onClick(category: Category) {
-                mealListAdapter.openCategory(category)
+                openCategory(mealListAdapter, category)
                 categoryAdapter.setPosition(category.id)
             }
         }
@@ -44,6 +44,19 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
 
             override fun onFailure(call: Call<CategoryList>, t: Throwable) {
                 categoryAdapter.categoryList = listOf()
+            }
+        })
+    }
+
+    fun openCategory(mealListAdapter: MealListAdapter, category: Category) {
+        Api.mealApi.getMealList(category.name).enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                mealListAdapter.list = response.body()?.meals ?: listOf()
+                mealListAdapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                mealListAdapter.list = listOf()
             }
         })
     }

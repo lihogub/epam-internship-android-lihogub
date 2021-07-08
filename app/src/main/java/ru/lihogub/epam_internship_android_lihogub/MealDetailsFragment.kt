@@ -35,9 +35,14 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
             override fun onResponse(call: Call<MealDetailsList>, response: Response<MealDetailsList>) {
                 val mealDetailsUIModel = response.body()?.meals?.first()?.toMealDetailsUIModel()
 
-                view.findViewById<TextView>(R.id.cuisine).text = mealDetailsUIModel?.area?.uppercase()
-                view.findViewById<TextView>(R.id.name).text = mealDetailsUIModel?.name
-                view.findViewById<TextView>(R.id.ingridients).text = mealDetailsUIModel?.ingredients
+                val cuisineTextView = view.findViewById<TextView>(R.id.cuisine)
+                cuisineTextView.text = mealDetailsUIModel?.area?.uppercase()
+
+                val nameTextView = view.findViewById<TextView>(R.id.name)
+                nameTextView.text = mealDetailsUIModel?.name
+
+                val ingridientsTextView = view.findViewById<TextView>(R.id.ingridients)
+                ingridientsTextView.text = mealDetailsUIModel?.ingredients
 
                 Glide.with(view.context)
                     .load(mealDetailsUIModel?.thumbUrl)

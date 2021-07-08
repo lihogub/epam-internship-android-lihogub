@@ -13,45 +13,47 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
+    var tagAdapter: MealDetailsTagAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
+        initView()
     }
 
-    private fun initView(view: View) {
-        val tagRecyclerView = view.findViewById<RecyclerView>(R.id.tag_rv)
-        tagRecyclerView.layoutManager = LinearLayoutManager(context)
+    private fun initView() {
+        val tagRecyclerView = view?.findViewById<RecyclerView>(R.id.tag_rv)
+        tagRecyclerView?.layoutManager = LinearLayoutManager(context)
             .apply{ orientation = LinearLayoutManager.HORIZONTAL }
 
         val tagAdapter = MealDetailsTagAdapter()
-        tagRecyclerView.adapter = tagAdapter
+        tagRecyclerView?.adapter = tagAdapter
 
-        loadMealDetails(view, tagAdapter)
+        loadMealDetails()
     }
 
-    private fun loadMealDetails(view: View, tagAdapter: MealDetailsTagAdapter) {
+    private fun loadMealDetails() {
         Api.mealApi.getMealDetailsList(arguments?.getInt(ID) ?: 0).enqueue(object : Callback<MealDetailsList> {
             override fun onResponse(call: Call<MealDetailsList>, response: Response<MealDetailsList>) {
                 val mealDetailsUIModel = response.body()?.meals?.first()?.toMealDetailsUIModel()
 
-                val cuisineTextView = view.findViewById<TextView>(R.id.cuisine)
-                cuisineTextView.text = mealDetailsUIModel?.area?.uppercase()
+                val cuisineTextView = view?.findViewById<TextView>(R.id.cuisine)
+                cuisineTextView?.text = mealDetailsUIModel?.area?.uppercase()
 
-                val nameTextView = view.findViewById<TextView>(R.id.name)
-                nameTextView.text = mealDetailsUIModel?.name
+                val nameTextView = view?.findViewById<TextView>(R.id.name)
+                nameTextView?.text = mealDetailsUIModel?.name
 
-                val ingridientsTextView = view.findViewById<TextView>(R.id.ingridients)
-                ingridientsTextView.text = mealDetailsUIModel?.ingredients
+                val ingridientsTextView = view?.findViewById<TextView>(R.id.ingridients)
+                ingridientsTextView?.text = mealDetailsUIModel?.ingredients
 
-                Glide.with(view.context)
+                Glide.with(view!!.context)
                     .load(mealDetailsUIModel?.thumbUrl)
-                    .into(view.findViewById(R.id.meal_details_image_top))
-                Glide.with(view.context)
+                    .into(view!!.findViewById(R.id.meal_details_image_top))
+                Glide.with(view!!.context)
                     .load(mealDetailsUIModel?.thumbUrl)
-                    .into(view.findViewById(R.id.meal_details_image_bottom))
+                    .into(view!!.findViewById(R.id.meal_details_image_bottom))
 
-                tagAdapter.tagList = mealDetailsUIModel?.tagList ?: listOf()
-                tagAdapter.notifyDataSetChanged()
+                tagAdapter?.tagList = mealDetailsUIModel?.tagList ?: listOf()
+                tagAdapter?.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<MealDetailsList>, t: Throwable) {}

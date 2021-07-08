@@ -60,8 +60,8 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         tagAdapter = null
     }
 

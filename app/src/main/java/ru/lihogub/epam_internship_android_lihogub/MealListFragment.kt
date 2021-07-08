@@ -80,8 +80,8 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
             .commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         mealCategoryAdapter = null
         mealListAdapter = null
     }

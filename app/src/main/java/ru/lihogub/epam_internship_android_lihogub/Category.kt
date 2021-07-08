@@ -1,9 +1,15 @@
 package ru.lihogub.epam_internship_android_lihogub
 
-import androidx.annotation.DrawableRes
+import com.google.gson.annotations.SerializedName
 
 data class Category(
+    @SerializedName("idCategory")
     val id: Int,
-    var active: Boolean,
-    @DrawableRes val image: Int
+    @SerializedName("strCategory")
+    val name: String,
+    @SerializedName("strCategoryDescription")
+    val description: String,
+    @SerializedName("strCategoryThumb")
+    val thumbUrl: String,
+    var active: Boolean = false
 )

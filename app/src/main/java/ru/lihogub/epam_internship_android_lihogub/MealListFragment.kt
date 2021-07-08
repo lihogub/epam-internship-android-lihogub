@@ -1,58 +1,89 @@
 package ru.lihogub.epam_internship_android_lihogub
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
+    var mealCategoryAdapter: MealCategoryAdapter? = null
+    var mealListAdapter: MealListAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
-        val mealListAdapter = MealListAdapter(
-            object : OnItemClickListener {
-                override fun onClick(dish: Dish) = openMealDetailsFragment(dish)
-            }
-        )
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = mealListAdapter
-        mealListAdapter.list.addAll(
-            listOf(
-                Api.getRecipeById(52992),
-                Api.getRecipeById(52935)
-            )
-        )
-
-        val categoryList = listOf(
-            Category(0, false, R.drawable.beef),
-            Category(1, false, R.drawable.dessert),
-            Category(2, false, R.drawable.pasta),
-            Category(3, false, R.drawable.miscellaneous),
-            Category(4, false, R.drawable.lamb),
-            Category(5, false, R.drawable.chicken)
-        )
-
-        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_rv)
-        val categoryAdapter = MealCategoryAdapter()
-        categoryAdapter.categoryList = categoryList
-        categoryRecyclerView.layoutManager = LinearLayoutManager(context)
-            .apply { orientation = LinearLayoutManager.HORIZONTAL }
-        categoryRecyclerView.adapter = categoryAdapter
+        initView()
     }
 
-    private fun openMealDetailsFragment(dish: Dish) {
+    private fun initView() {
+        val mealListRecyclerView = view?.findViewById<RecyclerView>(R.id.rv)
+        val categoryListRecyclerView = view?.findViewById<RecyclerView>(R.id.category_rv)
+
+        mealListAdapter = MealListAdapter(
+            object : OnItemClickListener {
+                override fun onClick(mealListItem: MealListItem) = openMealDetailsFragment(mealListItem)
+            }
+        )
+        mealListRecyclerView?.adapter = mealListAdapter
+        mealListRecyclerView?.layoutManager = LinearLayoutManager(context)
+
+        mealCategoryAdapter = MealCategoryAdapter()
+        mealCategoryAdapter?.onCategoryClickListener = object : OnCategoryClickListener {
+            override fun onClick(category: Category) {
+                openCategory(category)
+                mealCategoryAdapter?.setPosition(category.id)
+            }
+        }
+        categoryListRecyclerView?.adapter = mealCategoryAdapter
+        categoryListRecyclerView?.layoutManager = LinearLayoutManager(context)
+            .apply { orientation     = LinearLayoutManager.HORIZONTAL }
+
+        loadCategories()
+    }
+
+    private fun loadCategories() {
+        Api.mealApi.getCategoryList().enqueue(object : Callback<CategoryList>{
+            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
+                mealCategoryAdapter?.categoryList = response.body()?.categories ?: listOf()
+                mealCategoryAdapter?.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<CategoryList>, t: Throwable) {
+                mealCategoryAdapter?.categoryList = listOf()
+            }
+        })
+    }
+
+    private fun openCategory(category: Category) {
+        Api.mealApi.getMealList(category.name).enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                mealListAdapter?.list = response.body()?.meals ?: listOf()
+                mealListAdapter?.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                mealListAdapter?.list = listOf()
+            }
+        })
+    }
+
+    private fun openMealDetailsFragment(mealListItem: MealListItem) {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentHostContainer,
-                MealDetailsFragment.newInstance(dish.name, dish.cuisine, dish.ingridients)
+                MealDetailsFragment.newInstance(mealListItem.id)
             )
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mealCategoryAdapter = null
+        mealListAdapter = null
     }
 
     companion object {

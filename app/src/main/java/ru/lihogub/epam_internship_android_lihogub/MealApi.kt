@@ -1,16 +1,17 @@
 package ru.lihogub.epam_internship_android_lihogub
 
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MealApi {
     @GET("categories.php")
-    fun getCategoryList(): Call<CategoryList>
+    fun getCategoryList(): Single<CategoryList>
 
     @GET("filter.php")
-    fun getMealList(@Query("c") categoryName: String): Call<MealList>
+    fun getMealList(@Query("c") categoryName: String): Single<MealList>
 
     @GET("lookup.php")
-    fun getMealDetailsList(@Query("i") categoryId: Int): Call<MealDetailsList>
+    fun getMealDetailsList(@Query("i") categoryId: Int): Single<MealDetailsList>
 }

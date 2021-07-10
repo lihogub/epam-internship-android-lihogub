@@ -2,12 +2,12 @@ package ru.lihogub.epam_internship_android_lihogub
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
     var mealCategoryAdapter: MealCategoryAdapter? = null
@@ -44,31 +44,27 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         loadCategories()
     }
 
-    private fun loadCategories() {
-        Api.mealApi.getCategoryList().enqueue(object : Callback<CategoryList>{
-            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
-                mealCategoryAdapter?.categoryList = response.body()?.categories ?: listOf()
+    private fun loadCategories() =
+        Api.mealApi.getCategoryList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ categoryList ->
+                mealCategoryAdapter?.categoryList = categoryList.categories
                 mealCategoryAdapter?.notifyDataSetChanged()
-            }
+            },{
+                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
+            })
 
-            override fun onFailure(call: Call<CategoryList>, t: Throwable) {
-                mealCategoryAdapter?.categoryList = listOf()
-            }
-        })
-    }
-
-    private fun openCategory(category: Category) {
-        Api.mealApi.getMealList(category.name).enqueue(object : Callback<MealList> {
-            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
-                mealListAdapter?.list = response.body()?.meals ?: listOf()
+    private fun openCategory(category: Category) =
+        Api.mealApi.getMealList(category.name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ mealList ->
+                mealListAdapter?.list = mealList.meals
                 mealListAdapter?.notifyDataSetChanged()
-            }
-
-            override fun onFailure(call: Call<MealList>, t: Throwable) {
-                mealListAdapter?.list = listOf()
-            }
-        })
-    }
+            },{
+                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
+            })
 
     private fun openMealDetailsFragment(mealListItem: MealListItem) {
         parentFragmentManager.beginTransaction()

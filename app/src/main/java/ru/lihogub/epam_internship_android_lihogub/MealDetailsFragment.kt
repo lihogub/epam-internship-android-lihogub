@@ -3,14 +3,14 @@ package ru.lihogub.epam_internship_android_lihogub
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
     var tagAdapter: MealDetailsTagAdapter? = null
@@ -31,10 +31,14 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
         loadMealDetails()
     }
 
-    private fun loadMealDetails() {
-        Api.mealApi.getMealDetailsList(arguments?.getInt(ID) ?: 0).enqueue(object : Callback<MealDetailsList> {
-            override fun onResponse(call: Call<MealDetailsList>, response: Response<MealDetailsList>) {
-                val mealDetailsUIModel = response.body()?.meals?.first()?.toMealDetailsUIModel()
+    private fun loadMealDetails() =
+        Api.mealApi.getMealDetailsList(arguments?.getInt(ID) ?: 0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                it.meals.first().toMealDetailsUIModel()
+            }
+            .subscribe ({ mealDetailsUIModel ->
 
                 val cuisineTextView = view?.findViewById<TextView>(R.id.cuisine)
                 cuisineTextView?.text = mealDetailsUIModel?.area?.uppercase()
@@ -45,20 +49,19 @@ class MealDetailsFragment : Fragment(R.layout.fragment_meal_details) {
                 val ingridientsTextView = view?.findViewById<TextView>(R.id.ingridients)
                 ingridientsTextView?.text = mealDetailsUIModel?.ingredients
 
-                Glide.with(view!!.context)
+                Glide.with(requireView().context)
                     .load(mealDetailsUIModel?.thumbUrl)
-                    .into(view!!.findViewById(R.id.meal_details_image_top))
-                Glide.with(view!!.context)
+                    .into(requireView().findViewById(R.id.meal_details_image_top))
+                Glide.with(requireView().context)
                     .load(mealDetailsUIModel?.thumbUrl)
-                    .into(view!!.findViewById(R.id.meal_details_image_bottom))
+                    .into(requireView().findViewById(R.id.meal_details_image_bottom))
 
-                tagAdapter?.tagList = mealDetailsUIModel?.tagList ?: listOf()
+                tagAdapter?.tagList = mealDetailsUIModel.tagList
                 tagAdapter?.notifyDataSetChanged()
-            }
 
-            override fun onFailure(call: Call<MealDetailsList>, t: Throwable) {}
-        })
-    }
+            }, {
+                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
+            })
 
     override fun onDestroyView() {
         super.onDestroyView()

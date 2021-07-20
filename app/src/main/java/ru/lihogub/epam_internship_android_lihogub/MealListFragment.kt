@@ -1,5 +1,7 @@
 package ru.lihogub.epam_internship_android_lihogub
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
+    val prefs: SharedPreferences? by lazy { context?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE) }
     var mealCategoryAdapter: MealCategoryAdapter? = null
     var mealListAdapter: MealListAdapter? = null
 
@@ -41,16 +44,20 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         categoryListRecyclerView?.layoutManager = LinearLayoutManager(context)
             .apply { orientation     = LinearLayoutManager.HORIZONTAL }
 
-        loadCategories()
+        val lastCategoryId = prefs?.getInt("last_category_id", 0) ?: 0
+        loadCategories(lastCategoryId)
     }
 
-    private fun loadCategories() =
+    private fun loadCategories(lastCategoryId: Int) =
         Api.mealApi.getCategoryList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ categoryList ->
                 mealCategoryAdapter?.categoryList = categoryList.categories
-                mealCategoryAdapter?.notifyDataSetChanged()
+                mealCategoryAdapter?.setPosition(lastCategoryId)
+                val lastCategoryIndex = lastCategoryId - 1
+                val lastCategory = categoryList.categories[lastCategoryIndex]
+                openCategory(lastCategory)
             },{
                 Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
             })
@@ -60,6 +67,10 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ mealList ->
+                prefs
+                    ?.edit()
+                    ?.putInt("last_category_id", category.id)
+                    ?.apply()
                 mealListAdapter?.list = mealList.meals
                 mealListAdapter?.notifyDataSetChanged()
             },{

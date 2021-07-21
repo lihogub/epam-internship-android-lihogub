@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface MealApi {
     @GET("categories.php")
-    fun getCategoryList(): Single<CategoryList>
+    fun getCategoryList(): Single<CategoryListDto>
 
     @GET("filter.php")
     fun getMealList(@Query("c") categoryName: String): Single<MealList>

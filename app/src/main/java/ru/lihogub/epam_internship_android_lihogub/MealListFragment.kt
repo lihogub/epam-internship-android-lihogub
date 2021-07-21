@@ -3,11 +3,13 @@ package ru.lihogub.epam_internship_android_lihogub
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -44,23 +46,63 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
         categoryListRecyclerView?.layoutManager = LinearLayoutManager(context)
             .apply { orientation     = LinearLayoutManager.HORIZONTAL }
 
-        val lastCategoryId = prefs?.getInt("last_category_id", 0) ?: 0
+        val lastCategoryId = prefs?.getInt("last_category_id", 1) ?: 1
         loadCategories(lastCategoryId)
     }
 
-    private fun loadCategories(lastCategoryId: Int) =
+    private fun loadCategories(lastCategoryId: Int) {
+        fetchCategoriesFromDb({ categoryList ->
+            Log.d(this::class.java.name, "Fetched categories from db")
+            if (categoryList.isEmpty()) {
+                Log.d(this::class.java.name, "Db is empty")
+                fetchCategoriesFromApi({ fetchedFromApi ->
+                    Log.d(this::class.java.name, "Fetched categories from API")
+                    saveCategoriesToDb(fetchedFromApi)
+                    Completable
+                        .fromAction { setCategoriesAndOpenOne(fetchedFromApi, lastCategoryId) }
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe()
+                }, {
+                    Log.e(this::class.java.name, "Failed to fetch categories from API", it)
+                })
+            } else {
+                Completable
+                    .fromAction { setCategoriesAndOpenOne(categoryList, lastCategoryId) }
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
+            }
+        }, {
+            Log.e(this::class.java.name, "Failed to fetch categories from db", it)
+        })
+    }
+
+    private fun fetchCategoriesFromApi(onSuccess: (List<Category>) -> Unit, onError: (Throwable) -> Unit) =
         Api.mealApi.getCategoryList()
+            .map { categoryListDto -> categoryListDto.categories }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ categoryList ->
-                mealCategoryAdapter?.categoryList = categoryList.categories
-                mealCategoryAdapter?.setPosition(lastCategoryId)
-                val lastCategoryIndex = lastCategoryId - 1
-                val lastCategory = categoryList.categories[lastCategoryIndex]
-                openCategory(lastCategory)
-            },{
-                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
-            })
+            .subscribe({ categoryList -> onSuccess(categoryList) }, { onError(it) })
+
+    private fun fetchCategoriesFromDb(onSuccess: (List<Category>) -> Unit, onError: (Throwable) -> Unit) =
+        AppDatabase.getInstance(requireContext()).getCategoryDao().getCategoryList()
+            .subscribeOn(Schedulers.io())
+            .subscribe({ categoryList -> onSuccess(categoryList) }, { onError(it) })
+
+    private fun saveCategoriesToDb(categoryList: List<Category>) =
+        AppDatabase.getInstance(requireContext()).getCategoryDao().insertCategoryList(categoryList)
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { Log.d(this::class.java.name, "Inserted categories to db") },
+                { Log.e(this::class.java.name, "Failed to insert categories to db") }
+            )
+
+    private fun setCategoriesAndOpenOne(categoryList: List<Category>, lastCategoryId: Int) {
+        mealCategoryAdapter?.categoryList = categoryList
+        mealCategoryAdapter?.setPosition(lastCategoryId)
+        val lastCategoryIndex = lastCategoryId - 1
+        val lastCategory = categoryList[lastCategoryIndex]
+        openCategory(lastCategory)
+    }
 
     private fun openCategory(category: Category) =
         Api.mealApi.getMealList(category.name)

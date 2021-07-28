@@ -5,13 +5,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+
 
 class MealListFragment : Fragment(R.layout.fragment_meal_list) {
     val prefs: SharedPreferences? by lazy { context?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE) }
@@ -48,6 +54,37 @@ class MealListFragment : Fragment(R.layout.fragment_meal_list) {
 
         val lastCategoryId = prefs?.getInt("last_category_id", 1) ?: 1
         loadCategories(lastCategoryId)
+
+        val bottomSheet: ConstraintLayout = requireActivity().findViewById(R.id.bottomSheet)
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+
+        requireActivity().findViewById<Button>(R.id.toolbarOptionsButton)
+            .setOnClickListener{
+                bottomSheetBehavior.state = STATE_EXPANDED
+            }
+
+        requireActivity().findViewById<Button>(R.id.asc_button)
+            .setOnClickListener{
+                val sortedMealList = mealListAdapter?.list?.sortedBy { it.name } ?: listOf()
+                mealListAdapter?.list = sortedMealList
+            }
+
+        requireActivity().findViewById<Button>(R.id.desc_button)
+            .setOnClickListener{
+                val sortedMealList = mealListAdapter?.list?.sortedByDescending { it.name } ?: listOf()
+                mealListAdapter?.list = sortedMealList
+            }
+
+        requireActivity().findViewById<Button>(R.id.applyButton)
+            .setOnClickListener{
+                bottomSheetBehavior.state = STATE_COLLAPSED
+                mealListAdapter?.notifyDataSetChanged()
+            }
+
+        requireActivity().findViewById<Button>(R.id.toolbarCloseButton)
+            .setOnClickListener{
+                bottomSheetBehavior.state = STATE_COLLAPSED
+            }
     }
 
     private fun loadCategories(lastCategoryId: Int) {

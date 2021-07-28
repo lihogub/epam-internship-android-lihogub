@@ -8,10 +8,44 @@
     tools:context=".MealListFragment"
     android:background="@color/white_darker">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:text="@string/foods"
+            android:textSize="18sp"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/toolbarOptionsButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:foreground="@drawable/ic_options_icon"
+            android:gravity="center|center_vertical"
+            android:layout_gravity="end"
+            style="?android:attr/buttonBarButtonStyle"
+            tools:targetApi="m"
+            tools:ignore="UnusedAttribute" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_rv"
         android:orientation="horizontal"
         android:layout_margin="@dimen/meal_list_category_rv_margin"
+        android:layout_marginBottom="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:listitem="@layout/category_list_item"
@@ -20,7 +54,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/meal_list_card_view_margin"
+        android:layout_marginHorizontal="@dimen/meal_list_card_view_margin"
         app:cardPreventCornerOverlap="true"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/meal_list_card_view_corner_radius">

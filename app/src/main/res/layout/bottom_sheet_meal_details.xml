@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="250dp"
+    app:cardCornerRadius="20dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="6dp"
+            android:background="@color/blue_light"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/cuisine"
+            style="@style/meal_details_cuisine_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/meal_details_cuisine_text_padding_start"
+            android:paddingTop="@dimen/meal_details_cuisine_text_padding_top"
+            android:paddingEnd="@dimen/meal_details_cuisine_text_padding_end"
+            android:text="@string/japaneese" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/meal_details_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/meal_details_name_text_margin_top"
+            android:paddingStart="@dimen/meal_details_name_text_padding_start"
+            android:paddingEnd="@dimen/meal_details_name_text_padding_end"
+            android:text="@string/teriyaki_chicken_casserole" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTagList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/tag_item" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/meal_details_ingridients_margin_top"
+            android:background="@color/blue_light"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/meal_details_ingridients_padding_top">
+
+            <TextView
+                style="@style/meal_details_ingridients_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/meal_details_ingridients_title_text_padding_start"
+                android:paddingEnd="@dimen/meal_details_ingridients_title_text_padding_end"
+                android:text="@string/ingridients" />
+
+            <TextView
+                android:id="@+id/ingridients"
+                style="@style/meal_details_ingridients_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/meal_details_ingridients_content_text_margin"
+                android:text="@string/chicken_recipe" />
+
+        </LinearLayout>
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtubePlayer"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:autoPlay="false" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

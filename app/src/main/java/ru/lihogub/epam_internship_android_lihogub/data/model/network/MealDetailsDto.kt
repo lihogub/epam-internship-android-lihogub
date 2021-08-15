@@ -14,7 +14,7 @@ data class MealDetailsDto(
     @SerializedName("strYoutube")
     val youtubeUrl: String,
     @SerializedName("strIngredient1")
-    val ingredient1: String,
+    val ingredient1: String?,
     @SerializedName("strIngredient2")
     val ingredient2: String?,
     @SerializedName("strIngredient3")
@@ -54,7 +54,7 @@ data class MealDetailsDto(
     @SerializedName("strIngredient20")
     val ingredient20: String?,
     @SerializedName("strMeasure1")
-    val measure1: String,
+    val measure1: String?,
     @SerializedName("strMeasure2")
     val measure2: String?,
     @SerializedName("strMeasure3")

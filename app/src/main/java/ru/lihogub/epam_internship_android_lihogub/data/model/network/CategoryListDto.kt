@@ -1,8 +1,8 @@
-package ru.lihogub.epam_internship_android_lihogub
+package ru.lihogub.epam_internship_android_lihogub.data.model.network
 
 import com.google.gson.annotations.SerializedName
 
 data class CategoryListDto(
     @SerializedName("categories")
-    val categories: List<Category>
+    val categories: List<CategoryDto>
 )

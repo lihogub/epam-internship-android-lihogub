@@ -7,6 +7,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "ru.lihogub.epam_internship_android_lihogub"
         minSdkVersion 21
@@ -33,6 +37,10 @@ android {
 }
 
 apply plugin: 'kotlin-kapt'
+
+kapt {
+    generateStubs = true
+}
 
 dependencies {
     // Core
@@ -104,6 +112,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
+
+    // YouTube player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }
 
 apply plugin: "androidx.navigation.safeargs"

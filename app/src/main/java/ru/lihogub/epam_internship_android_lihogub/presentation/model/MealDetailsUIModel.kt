@@ -1,4 +1,4 @@
-package ru.lihogub.epam_internship_android_lihogub
+package ru.lihogub.epam_internship_android_lihogub.presentation.model
 
 data class MealDetailsUIModel(
     val name: String,
@@ -6,5 +6,5 @@ data class MealDetailsUIModel(
     val tagList: List<String>,
     val ingredients: String,
     val thumbUrl: String,
-    val youtubeUrl: String,
+    val youtubeUrl: String
 )

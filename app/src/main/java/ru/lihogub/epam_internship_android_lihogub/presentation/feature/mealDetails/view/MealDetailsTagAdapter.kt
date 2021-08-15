@@ -1,11 +1,12 @@
-package ru.lihogub.epam_internship_android_lihogub
+package ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.lihogub.epam_internship_android_lihogub.R
 
-class MealDetailsTagAdapter : RecyclerView.Adapter<MealDetailsTagHolder>() {
-    var tagList = listOf<String>()
+class MealDetailsTagAdapter(private val tagList: List<String>) :
+    RecyclerView.Adapter<MealDetailsTagHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealDetailsTagHolder {
         val listItem = LayoutInflater

@@ -6,7 +6,7 @@
     <string name="dessert_image">Dessert image</string>
     <string name="pasta_image">Pasta image</string>
     <string name="miscellaneous_image">Miscellaneous image</string>
-    <string name="chiken_image">Chiken image</string>
+    <string name="chicken_image">Chicken image</string>
     <string name="meal_text">Soy-Glazed Meatloaves with Wasabi Mashed Potatoes &amp; Roasted Carrots</string>
     <string name="steak_text">Steak Diane</string>
     <string name="japaneese">JAPANEESE</string>
@@ -22,4 +22,6 @@
     <string name="sort_by_descending">По убыванию</string>
     <string name="apply">ПРИМЕНИТЬ</string>
     <string name="foods">Блюда</string>
+    <string name="category_image">Category Image</string>
+    <string name="meal_image">Meal image</string>
 </resources>

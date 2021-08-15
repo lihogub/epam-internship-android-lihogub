@@ -1,8 +1,8 @@
-package ru.lihogub.epam_internship_android_lihogub
+package ru.lihogub.epam_internship_android_lihogub.data.model.network
 
 import com.google.gson.annotations.SerializedName
 
-data class MealListItem (
+data class MealDto(
     @SerializedName("idMeal")
     val id: Int,
     @SerializedName("strMeal")

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mealListFragment">
+
+    <fragment
+        android:id="@+id/mealListFragment"
+        android:name="ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.view.MealListFragment"
+        android:label="fragment_meal_list"
+        tools:layout="@layout/fragment_meal_list">
+
+        <action
+            android:id="@+id/openMealDetailsFragmentAction"
+            app:destination="@id/mealDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.view.MealDetailsFragment"
+        android:label="fragment_meal_details"
+        tools:layout="@layout/fragment_meal_details">
+
+        <argument
+            android:name="mealId"
+            app:argType="integer" />
+
+    </fragment>
+
+</navigation>

@@ -16,22 +16,19 @@ class MealRepositoryImpl @Inject constructor(
 ) : MealRepository {
     override fun getMealList(categoryName: String): Single<List<MealEntity>> =
         mealApi.getMealList(categoryName)
-            .flatMap { mealListDto ->
-                Single.just(
-                    mealListDto.meals.map {
-                        it.toMealEntity()
-                    }
-                )
+            .map { mealListDto ->
+                mealListDto.meals.map {
+                    it.toMealEntity()
+                }
             }
 
     override fun getMealDetails(mealId: Int): Single<MealDetailsEntity> =
         mealApi.getMealDetails(mealId)
-            .flatMap { mealDetailsListDto ->
-                Single.just(
-                    mealDetailsListDto.meals.map {
+            .map { mealDetailsListDto ->
+                mealDetailsListDto.meals
+                    .map {
                         it.toMealDetailsEntity()
                     }
-                        .first()
-                )
+                    .first()
             }
 }

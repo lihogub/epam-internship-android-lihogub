@@ -19,6 +19,7 @@ class MealListViewModel(
     private val getMealListUseCase: GetMealListUseCase,
     private val getCategoryListUseCase: GetCategoryListUseCase
 ) : AndroidViewModel(myApplication) {
+
     private val prefs: SharedPreferences by lazy {
         myApplication.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     }
@@ -27,15 +28,11 @@ class MealListViewModel(
         get() = prefs.getString("lastCategoryName", "") ?: ""
         set(value) = prefs.edit().putString("lastCategoryName", value).apply()
 
-    private val _mealList = MutableLiveData<List<MealEntity>>(listOf())
-    val mealList: LiveData<List<MealUIModel>> = Transformations.map(_mealList) {
-        it.map { mealEntity -> mealEntity.toMealUIModel() }
-    }
+    private val _mealList = MutableLiveData<List<MealUIModel>>(listOf())
+    val mealList: LiveData<List<MealUIModel>> = _mealList
 
-    private val _categoryList = MutableLiveData<List<CategoryEntity>>(listOf())
-    val categoryList: LiveData<List<CategoryUIModel>> = Transformations.map(_categoryList) {
-        it.map { categoryEntity -> categoryEntity.toCategoryUIModel() }
-    }
+    private val _categoryList = MutableLiveData<List<CategoryUIModel>>(listOf())
+    val categoryList: LiveData<List<CategoryUIModel>> = _categoryList
 
     private val _currentCategory = MutableLiveData("")
     val currentCategory: LiveData<String> = _currentCategory
@@ -75,6 +72,9 @@ class MealListViewModel(
         getMealListUseCase(categoryName)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .map {
+                it.map { mealEntity -> mealEntity.toMealUIModel() }
+            }
             .subscribe({
                 _mealList.postValue(it)
             }, {
@@ -86,6 +86,9 @@ class MealListViewModel(
         getCategoryListUseCase()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .map {
+                it.map { categoryEntity -> categoryEntity.toCategoryUIModel() }
+            }
             .subscribe({
                 _categoryList.postValue(it)
             }, {

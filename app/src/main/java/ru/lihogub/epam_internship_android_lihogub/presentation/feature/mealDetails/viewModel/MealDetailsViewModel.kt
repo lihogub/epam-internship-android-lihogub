@@ -13,10 +13,9 @@ class MealDetailsViewModel(
     private val getMealDetailsUseCase: GetMealDetailsUseCase
 ) :
     AndroidViewModel(application) {
-    private val _mealDetails = MutableLiveData<MealDetailsEntity>()
-    val mealDetails: LiveData<MealDetailsUIModel> = Transformations.map(_mealDetails) {
-        it.toMealDetailsUIModel()
-    }
+
+    private val _mealDetails = MutableLiveData<MealDetailsUIModel>()
+    val mealDetails: LiveData<MealDetailsUIModel> = _mealDetails
 
     fun start(mealId: Int) {
         getMealDetails(mealId)
@@ -26,6 +25,9 @@ class MealDetailsViewModel(
         getMealDetailsUseCase(mealId)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .map {
+                it.toMealDetailsUIModel()
+            }
             .subscribe({
                 _mealDetails.postValue(it)
             }, {

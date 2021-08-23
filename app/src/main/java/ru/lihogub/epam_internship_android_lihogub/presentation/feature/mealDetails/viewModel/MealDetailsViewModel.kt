@@ -23,7 +23,7 @@ class MealDetailsViewModel(
     }
 
     private fun getMealDetails(mealId: Int) {
-        getMealDetailsUseCase.getMealDetails(mealId)
+        getMealDetailsUseCase(mealId)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({

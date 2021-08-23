@@ -7,5 +7,5 @@ import ru.lihogub.epam_internship_android_lihogub.domain.repository.CategoryRepo
 class GetCategoryListUseCase(
     private val categoryRepository: CategoryRepository
 ) {
-    fun getCategoryList(): Single<List<CategoryEntity>> = categoryRepository.getCategoryList()
+    operator fun invoke(): Single<List<CategoryEntity>> = categoryRepository.getCategoryList()
 }

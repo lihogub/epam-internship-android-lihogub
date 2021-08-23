@@ -72,7 +72,7 @@ class MealListViewModel(
     fun sortMealsByDescending() = _sortingRule.postValue(SortingRule.DESC)
 
     private fun getMealList(categoryName: String) {
-        getMealListUseCase.getMealList(categoryName)
+        getMealListUseCase(categoryName)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({
@@ -83,7 +83,7 @@ class MealListViewModel(
     }
 
     private fun getCategoryList() {
-        getCategoryListUseCase.getCategoryList()
+        getCategoryListUseCase()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({

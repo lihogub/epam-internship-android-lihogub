@@ -1,4 +1,4 @@
-package ru.lihogub.epam_internship_android_lihogub.presentation.base
+package ru.lihogub.epam_internship_android_lihogub.presentation.feature.hostActivity.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -3,7 +3,7 @@ package ru.lihogub.epam_internship_android_lihogub.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import ru.lihogub.epam_internship_android_lihogub.data.database.dao.CategoryDao
-import ru.lihogub.epam_internship_android_lihogub.data.model.database.CategoryDbModel
+import ru.lihogub.epam_internship_android_lihogub.data.database.model.CategoryDbModel
 
 @Database(
     entities = [CategoryDbModel::class],

@@ -1,4 +1,4 @@
-package ru.lihogub.epam_internship_android_lihogub.data.model.database
+package ru.lihogub.epam_internship_android_lihogub.data.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

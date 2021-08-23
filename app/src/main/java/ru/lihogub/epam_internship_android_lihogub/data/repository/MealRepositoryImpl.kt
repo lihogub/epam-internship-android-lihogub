@@ -1,11 +1,11 @@
 package ru.lihogub.epam_internship_android_lihogub.data.repository
 
 import io.reactivex.rxjava3.core.Single
+import ru.lihogub.epam_internship_android_lihogub.data.mapper.toMealDetailsEntity
+import ru.lihogub.epam_internship_android_lihogub.data.mapper.toMealEntity
 import ru.lihogub.epam_internship_android_lihogub.data.network.MealApi
 import ru.lihogub.epam_internship_android_lihogub.domain.entity.MealDetailsEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.entity.MealEntity
-import ru.lihogub.epam_internship_android_lihogub.domain.mapper.toMealDetailsEntity
-import ru.lihogub.epam_internship_android_lihogub.domain.mapper.toMealEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.repository.MealRepository
 import javax.inject.Inject
 import javax.inject.Singleton

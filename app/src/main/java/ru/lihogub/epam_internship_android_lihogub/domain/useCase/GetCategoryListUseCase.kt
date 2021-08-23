@@ -4,8 +4,8 @@ import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import ru.lihogub.epam_internship_android_lihogub.data.database.dao.CategoryDao
 import ru.lihogub.epam_internship_android_lihogub.data.mapper.toCategoryDbModel
+import ru.lihogub.epam_internship_android_lihogub.data.mapper.toCategoryEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.entity.CategoryEntity
-import ru.lihogub.epam_internship_android_lihogub.domain.mapper.toCategoryEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.repository.CategoryRepository
 
 class GetCategoryListUseCase(

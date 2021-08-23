@@ -6,6 +6,7 @@ import ru.lihogub.epam_internship_android_lihogub.data.database.dao.CategoryDao
 import ru.lihogub.epam_internship_android_lihogub.data.mapper.toCategoryDbModel
 import ru.lihogub.epam_internship_android_lihogub.data.mapper.toCategoryEntity
 import ru.lihogub.epam_internship_android_lihogub.data.network.MealApi
+import ru.lihogub.epam_internship_android_lihogub.data.prefs.CategoryPrefsSource
 import ru.lihogub.epam_internship_android_lihogub.domain.entity.CategoryEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.repository.CategoryRepository
 import javax.inject.Inject
@@ -14,7 +15,8 @@ import javax.inject.Singleton
 @Singleton
 class CategoryRepositoryImpl @Inject constructor(
     var mealApi: MealApi,
-    var categoryDao: CategoryDao
+    var categoryDao: CategoryDao,
+    var categoryPrefsSource: CategoryPrefsSource
 ) : CategoryRepository {
     override fun getCategoryList(): Single<List<CategoryEntity>> = categoryDao.getCategoryList()
         .map { dbCategoryList ->
@@ -42,4 +44,10 @@ class CategoryRepositoryImpl @Inject constructor(
                 }
             }
         }
+
+    override fun setLastCategoryName(categoryName: String) =
+        categoryPrefsSource.setLastCategoryName(categoryName)
+
+    override fun getLastCategoryName(): String =
+        categoryPrefsSource.getLastCategoryName()
 }

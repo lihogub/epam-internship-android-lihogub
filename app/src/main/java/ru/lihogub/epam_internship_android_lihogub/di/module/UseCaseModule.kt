@@ -4,16 +4,13 @@ import dagger.Module
 import dagger.Provides
 import ru.lihogub.epam_internship_android_lihogub.domain.repository.CategoryRepository
 import ru.lihogub.epam_internship_android_lihogub.domain.repository.MealRepository
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetCategoryListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealDetailsUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealListUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.*
 
 @Module
 class UseCaseModule {
     @Provides
-    fun provideGetCategoryListUseCase(
-        categoryRepository: CategoryRepository
-    ) = GetCategoryListUseCase(categoryRepository)
+    fun provideGetCategoryListUseCase(categoryRepository: CategoryRepository) =
+        GetCategoryListUseCase(categoryRepository)
 
     @Provides
     fun provideGetMealListUseCase(mealRepository: MealRepository) =
@@ -22,4 +19,12 @@ class UseCaseModule {
     @Provides
     fun provideGetMealDetailsUseCase(mealRepository: MealRepository) =
         GetMealDetailsUseCase(mealRepository)
+
+    @Provides
+    fun provideGetLastCategoryUseCase(categoryRepository: CategoryRepository) =
+        GetLastCategoryUseCase(categoryRepository)
+
+    @Provides
+    fun provideSaveLastCategoryUseCase(categoryRepository: CategoryRepository) =
+        SaveLastCategoryUseCase(categoryRepository)
 }

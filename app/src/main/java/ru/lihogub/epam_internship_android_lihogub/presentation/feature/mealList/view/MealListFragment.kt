@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -16,32 +15,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPS
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import ru.lihogub.epam_internship_android_lihogub.R
 import ru.lihogub.epam_internship_android_lihogub.databinding.FragmentMealListBinding
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetCategoryListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealListUseCase
 import ru.lihogub.epam_internship_android_lihogub.getAppComponent
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel.MealListViewModel
-import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel.MealListViewModelFactory
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel.SortingRule
 import javax.inject.Inject
 
 
-class MealListFragment : Fragment(), OnCategoryClickListener,
-    OnMealClickListener {
+class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListener {
     private lateinit var binding: FragmentMealListBinding
 
     @Inject
-    lateinit var getMealListUseCase: GetMealListUseCase
-
-    @Inject
-    lateinit var getCategoryListUseCase: GetCategoryListUseCase
-
-    private val mealListViewModel by viewModels<MealListViewModel> {
-        MealListViewModelFactory(
-            myApplication = requireActivity().application,
-            getMealListUseCase = getMealListUseCase,
-            getCategoryListUseCase = getCategoryListUseCase
-        )
-    }
+    lateinit var mealListViewModel: MealListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -140,6 +124,4 @@ class MealListFragment : Fragment(), OnCategoryClickListener,
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), bgColorId))
         }
     }
-
-    companion object
 }

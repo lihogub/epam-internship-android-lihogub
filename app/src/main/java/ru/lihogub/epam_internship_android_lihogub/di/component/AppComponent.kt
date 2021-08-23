@@ -15,7 +15,10 @@ import javax.inject.Singleton
         MealApiModule::class,
         BindModule::class,
         DatabaseModule::class,
-        UseCaseModule::class
+        UseCaseModule::class,
+        PrefsModule::class,
+        MealListModule::class,
+        MealDetailsModule::class
     ]
 )
 @Singleton

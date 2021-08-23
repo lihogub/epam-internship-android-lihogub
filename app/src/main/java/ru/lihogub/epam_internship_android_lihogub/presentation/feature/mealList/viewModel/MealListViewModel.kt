@@ -1,32 +1,24 @@
 package ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.lihogub.epam_internship_android_lihogub.domain.entity.CategoryEntity
-import ru.lihogub.epam_internship_android_lihogub.domain.entity.MealEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetCategoryListUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetLastCategoryUseCase
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealListUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.SaveLastCategoryUseCase
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toCategoryUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toMealUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.CategoryUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.MealUIModel
 
 class MealListViewModel(
-    myApplication: Application,
     private val getMealListUseCase: GetMealListUseCase,
-    private val getCategoryListUseCase: GetCategoryListUseCase
-) : AndroidViewModel(myApplication) {
-
-    private val prefs: SharedPreferences by lazy {
-        myApplication.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-    }
-
-    private var lastCategoryName: String
-        get() = prefs.getString("lastCategoryName", "") ?: ""
-        set(value) = prefs.edit().putString("lastCategoryName", value).apply()
+    private val getCategoryListUseCase: GetCategoryListUseCase,
+    private val getLastCategoryUseCase: GetLastCategoryUseCase,
+    private val saveLastCategoryUseCase: SaveLastCategoryUseCase
+) : ViewModel() {
 
     private val _mealList = MutableLiveData<List<MealUIModel>>(listOf())
     val mealList: LiveData<List<MealUIModel>> = _mealList
@@ -42,6 +34,7 @@ class MealListViewModel(
 
     fun start() {
         getCategoryList()
+        val lastCategoryName = getLastCategoryUseCase()
         openCategory(lastCategoryName)
         _currentCategory.postValue(lastCategoryName)
     }
@@ -49,7 +42,7 @@ class MealListViewModel(
     fun openCategory(categoryName: String) {
         _currentCategory.postValue(categoryName)
         getMealList(categoryName)
-        lastCategoryName = categoryName
+        saveLastCategoryUseCase(categoryName)
     }
 
     fun applySort() {
@@ -95,15 +88,4 @@ class MealListViewModel(
                 it.printStackTrace()
             })
     }
-}
-
-enum class SortingRule { ASC, DESC, DEFAULT }
-
-class MealListViewModelFactory(
-    private val myApplication: Application,
-    private val getMealListUseCase: GetMealListUseCase,
-    private val getCategoryListUseCase: GetCategoryListUseCase
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        MealListViewModel(myApplication, getMealListUseCase, getCategoryListUseCase) as T
 }

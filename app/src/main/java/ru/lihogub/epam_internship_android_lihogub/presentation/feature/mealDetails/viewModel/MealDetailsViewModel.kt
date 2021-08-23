@@ -1,18 +1,16 @@
 package ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.viewModel
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.lihogub.epam_internship_android_lihogub.domain.entity.MealDetailsEntity
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealDetailsUseCase
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toMealDetailsUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.MealDetailsUIModel
 
 class MealDetailsViewModel(
-    application: Application,
     private val getMealDetailsUseCase: GetMealDetailsUseCase
-) :
-    AndroidViewModel(application) {
+) : ViewModel() {
 
     private val _mealDetails = MutableLiveData<MealDetailsUIModel>()
     val mealDetails: LiveData<MealDetailsUIModel> = _mealDetails
@@ -34,13 +32,4 @@ class MealDetailsViewModel(
                 it.printStackTrace()
             })
     }
-}
-
-class MealDetailsViewModelFactory(
-    private val application: Application,
-    private val getMealDetailsUseCase: GetMealDetailsUseCase
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        MealDetailsViewModel(application, getMealDetailsUseCase) as T
-
 }

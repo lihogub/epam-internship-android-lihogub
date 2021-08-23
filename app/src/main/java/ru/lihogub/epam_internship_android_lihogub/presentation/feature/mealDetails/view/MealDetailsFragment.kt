@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,10 +14,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import ru.lihogub.epam_internship_android_lihogub.R
 import ru.lihogub.epam_internship_android_lihogub.databinding.FragmentMealDetailsBinding
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealDetailsUseCase
 import ru.lihogub.epam_internship_android_lihogub.getAppComponent
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.viewModel.MealDetailsViewModel
-import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.viewModel.MealDetailsViewModelFactory
 import javax.inject.Inject
 
 
@@ -27,14 +24,7 @@ class MealDetailsFragment : Fragment() {
     private val args by navArgs<MealDetailsFragmentArgs>()
 
     @Inject
-    lateinit var getMealDetailsUseCase: GetMealDetailsUseCase
-
-    private val mealDetailsViewModel by viewModels<MealDetailsViewModel> {
-        MealDetailsViewModelFactory(
-            application = requireActivity().application,
-            getMealDetailsUseCase = getMealDetailsUseCase
-        )
-    }
+    lateinit var mealDetailsViewModel: MealDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

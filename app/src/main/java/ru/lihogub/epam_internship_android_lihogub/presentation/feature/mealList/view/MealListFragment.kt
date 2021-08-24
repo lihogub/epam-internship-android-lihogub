@@ -27,6 +27,9 @@ class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListene
     @Inject
     lateinit var mealListViewModel: MealListViewModel
 
+    private var mealAdapter: MealAdapter? = MealAdapter(this)
+    private var categoryAdapter: CategoryAdapter? = CategoryAdapter(this)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +42,14 @@ class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireContext().getAppComponent().inject(this)
-        mealListViewModel.start()
         initView()
+        mealListViewModel.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mealAdapter = null
+        categoryAdapter = null
     }
 
     override fun onCategoryClick(categoryName: String) {
@@ -54,32 +63,31 @@ class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListene
     }
 
     private fun initView() {
-        initCategoryListRecyclerView()
-        initMealListRecyclerView()
+        initRecyclers()
+        subscribeAdapters()
         setupFilterBottomSheet()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun initMealListRecyclerView() {
-        binding.rvMealList.adapter = MealAdapter(this).apply {
-            mealListViewModel.mealList.observe(viewLifecycleOwner) { newMealList ->
-                mealList = newMealList
-                notifyDataSetChanged()
-            }
-        }
+    private fun initRecyclers() {
+        binding.rvMealList.adapter = mealAdapter
+        binding.rvCategoryList.adapter = categoryAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun initCategoryListRecyclerView() {
-        binding.rvCategoryList.adapter = CategoryAdapter(this).apply {
-            mealListViewModel.categoryList.observe(viewLifecycleOwner) { newCategoryList ->
-                categoryList = newCategoryList
-                notifyDataSetChanged()
-            }
-            mealListViewModel.currentCategory.observe(viewLifecycleOwner) { newCategoryName ->
-                currentCategoryName = newCategoryName
-                notifyDataSetChanged()
-            }
+    private fun subscribeAdapters() {
+        mealListViewModel.mealList.observe(viewLifecycleOwner) {
+            mealAdapter?.mealList = it
+            mealAdapter?.notifyDataSetChanged()
+        }
+
+        mealListViewModel.categoryList.observe(viewLifecycleOwner) {
+            categoryAdapter?.categoryList = it
+            categoryAdapter?.notifyDataSetChanged()
+        }
+
+        mealListViewModel.currentCategory.observe(viewLifecycleOwner) {
+            categoryAdapter?.currentCategoryName = it
+            categoryAdapter?.notifyDataSetChanged()
         }
     }
 

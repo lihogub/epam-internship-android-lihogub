@@ -8,7 +8,7 @@ import ru.lihogub.epam_internship_android_lihogub.presentation.model.MealDetails
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.MealUIModel
 
 fun CategoryEntity.toCategoryUIModel() =
-    CategoryUIModel(id, name, thumbUrl)
+    CategoryUIModel(id, name, thumbUrl, false)
 
 fun MealDetailsEntity.toMealDetailsUIModel() =
     MealDetailsUIModel(name, area.uppercase(), tagList, ingredients, thumbUrl, youtubeUrl)

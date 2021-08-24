@@ -16,12 +16,12 @@ class CategoryHolder(
     private val categoryImage = view.findViewById<ImageView>(R.id.categoryImage)
     private val categoryCard = view.findViewById<CardView>(R.id.categoryCard)
 
-    fun bind(category: CategoryUIModel, isActive: Boolean) {
+    fun bind(category: CategoryUIModel) {
         Glide.with(view.context)
             .load(category.thumbUrl)
             .into(categoryImage)
 
-        val bgColor = if (isActive) R.color.pink else R.color.blue_light
+        val bgColor = if (category.active) R.color.pink else R.color.blue_light
         categoryCard.setCardBackgroundColor(ContextCompat.getColor(itemView.context, bgColor))
 
         itemView.setOnClickListener {

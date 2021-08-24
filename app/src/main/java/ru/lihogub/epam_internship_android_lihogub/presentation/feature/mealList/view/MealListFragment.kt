@@ -81,13 +81,11 @@ class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListene
         }
 
         mealListViewModel.categoryList.observe(viewLifecycleOwner) {
-            categoryAdapter?.categoryList = it
-            categoryAdapter?.notifyDataSetChanged()
+            categoryAdapter?.setCategoryList(it)
         }
 
         mealListViewModel.currentCategory.observe(viewLifecycleOwner) {
-            categoryAdapter?.currentCategoryName = it
-            categoryAdapter?.notifyDataSetChanged()
+            categoryAdapter?.setCurrentCategoryName(it)
         }
     }
 

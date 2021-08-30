@@ -1,13 +1,11 @@
 package ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetCategoryListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetLastCategoryUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.SaveLastCategoryUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.*
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toCategoryUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toMealUIModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.CategoryUIModel
@@ -17,7 +15,9 @@ class MealListViewModel(
     private val getMealListUseCase: GetMealListUseCase,
     private val getCategoryListUseCase: GetCategoryListUseCase,
     private val getLastCategoryUseCase: GetLastCategoryUseCase,
-    private val saveLastCategoryUseCase: SaveLastCategoryUseCase
+    private val saveLastCategoryUseCase: SaveLastCategoryUseCase,
+    private val setMealLikeUseCase: SetMealLikeUseCase,
+    private val resetMealLikeUseCase: ResetMealLikeUseCase
 ) : ViewModel() {
 
     private val _mealList = MutableLiveData<List<MealUIModel>>(listOf())
@@ -60,6 +60,37 @@ class MealListViewModel(
     fun sortMealsByAscending() = _sortingRule.postValue(SortingRule.ASC)
 
     fun sortMealsByDescending() = _sortingRule.postValue(SortingRule.DESC)
+
+    fun toggleLike(mealId: Int) {
+        val meal = mealList.value?.find {
+            it.id == mealId
+        }
+        if (meal?.liked == true) {
+            resetLike(mealId)
+        } else {
+            setLike(mealId)
+        }
+    }
+
+    private fun setLike(mealId: Int) =
+        setMealLikeUseCase(mealId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                Log.d("MYTAG", "Like set")
+            }, {
+                it.printStackTrace()
+            })
+
+    private fun resetLike(mealId: Int) =
+        resetMealLikeUseCase(mealId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                Log.d("MYTAG", "Like reset")
+            }, {
+                it.printStackTrace()
+            })
 
     private fun getMealList(categoryName: String) {
         getMealListUseCase(categoryName)

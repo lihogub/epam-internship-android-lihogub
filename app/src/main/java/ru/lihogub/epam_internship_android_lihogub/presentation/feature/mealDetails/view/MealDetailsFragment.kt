@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -51,6 +52,14 @@ class MealDetailsFragment : Fragment() {
                 findViewById<RecyclerView>(R.id.rvTagList).adapter =
                     MealDetailsTagAdapter(it.tagList)
 
+                val likeButton = findViewById<ImageView>(R.id.mealDetailsLikeButton)
+                Glide.with(requireView().context)
+                    .load(if (it.liked) R.drawable.heart_pink else R.drawable.heart_black)
+                    .into(likeButton)
+                likeButton.setOnClickListener {
+                    mealDetailsViewModel.toggleLike()
+                }
+
                 Glide.with(requireView().context)
                     .load(it.thumbUrl)
                     .into(findViewById(R.id.mealDetailsImageTop))
@@ -59,7 +68,7 @@ class MealDetailsFragment : Fragment() {
                     .addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
                             val videoId = it.youtubeUrl.substringAfterLast("=")
-                            youTubePlayer.loadVideo(videoId, 0F);
+                            youTubePlayer.loadVideo(videoId, 0F)
                             youTubePlayer.pause()
                         }
                     })

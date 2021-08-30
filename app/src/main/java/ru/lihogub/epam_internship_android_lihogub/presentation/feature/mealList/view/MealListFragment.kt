@@ -21,13 +21,14 @@ import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.
 import javax.inject.Inject
 
 
-class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListener {
+class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListener, OnMealLikeClickListener {
+
     private lateinit var binding: FragmentMealListBinding
 
     @Inject
     lateinit var mealListViewModel: MealListViewModel
 
-    private var mealAdapter: MealAdapter? = MealAdapter(this)
+    private var mealAdapter: MealAdapter? = MealAdapter(this, this)
     private var categoryAdapter: CategoryAdapter? = CategoryAdapter(this)
 
     override fun onCreateView(
@@ -60,6 +61,10 @@ class MealListFragment : Fragment(), OnCategoryClickListener, OnMealClickListene
         findNavController().navigate(
             MealListFragmentDirections.openMealDetailsFragmentAction(mealId)
         )
+    }
+
+    override fun onMealLikeClick(mealId: Int) {
+        mealListViewModel.toggleLike(mealId)
     }
 
     private fun initView() {

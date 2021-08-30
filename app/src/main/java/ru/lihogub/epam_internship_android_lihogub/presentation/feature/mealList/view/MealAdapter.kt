@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.lihogub.epam_internship_android_lihogub.R
 import ru.lihogub.epam_internship_android_lihogub.presentation.model.MealUIModel
 
-class MealAdapter(private val onMealClickListener: OnMealClickListener) :
+class MealAdapter(
+    private val onMealClickListener: OnMealClickListener,
+    private val onMealLikeClickListener: OnMealLikeClickListener
+) :
     RecyclerView.Adapter<MealHolder>() {
     var mealList = listOf<MealUIModel>()
 
@@ -18,7 +21,7 @@ class MealAdapter(private val onMealClickListener: OnMealClickListener) :
     }
 
     override fun onBindViewHolder(holderMeal: MealHolder, position: Int) {
-        holderMeal.bind(mealList[position], onMealClickListener)
+        holderMeal.bind(mealList[position], onMealClickListener, onMealLikeClickListener)
     }
 
     override fun getItemCount(): Int = mealList.size

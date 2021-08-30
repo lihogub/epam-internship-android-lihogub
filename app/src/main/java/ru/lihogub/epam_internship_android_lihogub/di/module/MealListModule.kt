@@ -2,10 +2,7 @@ package ru.lihogub.epam_internship_android_lihogub.di.module
 
 import dagger.Module
 import dagger.Provides
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetCategoryListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetLastCategoryUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealListUseCase
-import ru.lihogub.epam_internship_android_lihogub.domain.useCase.SaveLastCategoryUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.*
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel.MealListViewModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.viewModel.MealListViewModelFactory
 
@@ -16,13 +13,17 @@ class MealListModule {
         getMealListUseCase: GetMealListUseCase,
         getCategoryListUseCase: GetCategoryListUseCase,
         saveLastCategoryUseCase: SaveLastCategoryUseCase,
-        getLastCategoryUseCase: GetLastCategoryUseCase
+        getLastCategoryUseCase: GetLastCategoryUseCase,
+        setMealLikeUseCase: SetMealLikeUseCase,
+        resetMealLikeUseCase: ResetMealLikeUseCase
     ): MealListViewModelFactory =
         MealListViewModelFactory(
             getMealListUseCase = getMealListUseCase,
             getCategoryListUseCase = getCategoryListUseCase,
             getLastCategoryUseCase = getLastCategoryUseCase,
-            saveLastCategoryUseCase = saveLastCategoryUseCase
+            saveLastCategoryUseCase = saveLastCategoryUseCase,
+            setMealLikeUseCase = setMealLikeUseCase,
+            resetMealLikeUseCase = resetMealLikeUseCase
         )
 
     @Provides

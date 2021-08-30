@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import ru.lihogub.epam_internship_android_lihogub.data.database.AppDatabase
 import ru.lihogub.epam_internship_android_lihogub.data.database.dao.CategoryDao
+import ru.lihogub.epam_internship_android_lihogub.data.database.dao.MealDao
 
 @Module
 class DatabaseModule {
@@ -15,4 +16,7 @@ class DatabaseModule {
 
     @Provides
     fun provideCategoryDao(appDatabase: AppDatabase): CategoryDao = appDatabase.getCategoryDao()
+
+    @Provides
+    fun provideMealDao(appDatabase: AppDatabase): MealDao = appDatabase.getMealDao()
 }

@@ -3,6 +3,8 @@ package ru.lihogub.epam_internship_android_lihogub.di.module
 import dagger.Module
 import dagger.Provides
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealDetailsUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.ResetMealLikeUseCase
+import ru.lihogub.epam_internship_android_lihogub.domain.useCase.SetMealLikeUseCase
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.viewModel.MealDetailsViewModel
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.viewModel.MealDetailsViewModelFactory
 
@@ -10,10 +12,14 @@ import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetai
 class MealDetailsModule {
     @Provides
     fun provideMealDetailsViewModelFactory(
-        getMealDetailsUseCase: GetMealDetailsUseCase
+        getMealDetailsUseCase: GetMealDetailsUseCase,
+        setMealLikeUseCase: SetMealLikeUseCase,
+        resetMealLikeUseCase: ResetMealLikeUseCase
     ): MealDetailsViewModelFactory =
         MealDetailsViewModelFactory(
-            getMealDetailsUseCase = getMealDetailsUseCase
+            getMealDetailsUseCase = getMealDetailsUseCase,
+            setMealLikeUseCase = setMealLikeUseCase,
+            resetMealLikeUseCase = resetMealLikeUseCase
         )
 
     @Provides

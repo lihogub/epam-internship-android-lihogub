@@ -3,6 +3,7 @@ package ru.lihogub.epam_internship_android_lihogub.di.module
 import dagger.Module
 import dagger.Provides
 import ru.lihogub.epam_internship_android_lihogub.data.database.dao.CategoryDao
+import ru.lihogub.epam_internship_android_lihogub.data.database.dao.MealDao
 import ru.lihogub.epam_internship_android_lihogub.data.network.MealApi
 import ru.lihogub.epam_internship_android_lihogub.data.prefs.CategoryPrefsSource
 import ru.lihogub.epam_internship_android_lihogub.data.repository.CategoryRepositoryImpl
@@ -11,7 +12,7 @@ import ru.lihogub.epam_internship_android_lihogub.data.repository.MealRepository
 @Module
 class RepositoryModule {
     @Provides
-    fun provideMealRepositoryImpl(mealApi: MealApi) = MealRepositoryImpl(mealApi)
+    fun provideMealRepositoryImpl(mealApi: MealApi, mealDao: MealDao) = MealRepositoryImpl(mealApi, mealDao)
 
     @Provides
     fun provideCategoryRepositoryImpl(

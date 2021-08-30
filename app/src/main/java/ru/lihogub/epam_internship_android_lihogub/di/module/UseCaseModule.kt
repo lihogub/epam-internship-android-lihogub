@@ -27,4 +27,12 @@ class UseCaseModule {
     @Provides
     fun provideSaveLastCategoryUseCase(categoryRepository: CategoryRepository) =
         SaveLastCategoryUseCase(categoryRepository)
+
+    @Provides
+    fun provideSetMealLikeUseCase(mealRepository: MealRepository) =
+        SetMealLikeUseCase(mealRepository)
+
+    @Provides
+    fun provideResetMealLikeUseCase(mealRepository: MealRepository) =
+        ResetMealLikeUseCase(mealRepository)
 }

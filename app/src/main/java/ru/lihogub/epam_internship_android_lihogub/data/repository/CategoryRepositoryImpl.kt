@@ -14,9 +14,9 @@ import javax.inject.Singleton
 
 @Singleton
 class CategoryRepositoryImpl @Inject constructor(
-    var mealApi: MealApi,
-    var categoryDao: CategoryDao,
-    var categoryPrefsSource: CategoryPrefsSource
+    private val mealApi: MealApi,
+    private val categoryDao: CategoryDao,
+    private val categoryPrefsSource: CategoryPrefsSource
 ) : CategoryRepository {
     override fun getCategoryList(): Single<List<CategoryEntity>> = categoryDao.getCategoryList()
         .map { dbCategoryList ->

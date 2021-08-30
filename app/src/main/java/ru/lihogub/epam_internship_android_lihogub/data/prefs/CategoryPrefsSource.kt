@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 private const val LAST_CATEGORY_NAME = "last-category-name"
 
-class CategoryPrefsSource @Inject constructor(var prefs: SharedPreferences) {
+class CategoryPrefsSource @Inject constructor(private val prefs: SharedPreferences) {
     fun setLastCategoryName(categoryName: String) =
         prefs.edit().putString(LAST_CATEGORY_NAME, categoryName).apply()
 

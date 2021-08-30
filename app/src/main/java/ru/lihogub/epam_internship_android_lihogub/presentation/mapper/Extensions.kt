@@ -11,7 +11,7 @@ fun CategoryEntity.toCategoryUIModel() =
     CategoryUIModel(id, name, thumbUrl, false)
 
 fun MealDetailsEntity.toMealDetailsUIModel() =
-    MealDetailsUIModel(name, area.uppercase(), tagList, ingredients, thumbUrl, youtubeUrl)
+    MealDetailsUIModel(id, name, area.uppercase(), tagList, ingredients, thumbUrl, youtubeUrl, liked)
 
 fun MealEntity.toMealUIModel() =
-    MealUIModel(id, name, thumbUrl)
+    MealUIModel(id, name, thumbUrl, liked)

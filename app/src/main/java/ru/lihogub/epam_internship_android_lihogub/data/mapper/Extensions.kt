@@ -1,6 +1,7 @@
 package ru.lihogub.epam_internship_android_lihogub.data.mapper
 
 import ru.lihogub.epam_internship_android_lihogub.data.database.model.CategoryDbModel
+import ru.lihogub.epam_internship_android_lihogub.data.database.model.MealDbModel
 import ru.lihogub.epam_internship_android_lihogub.data.network.model.CategoryDto
 import ru.lihogub.epam_internship_android_lihogub.data.network.model.MealDetailsDto
 import ru.lihogub.epam_internship_android_lihogub.data.network.model.MealDto
@@ -13,6 +14,7 @@ fun CategoryEntity.toCategoryDbModel() =
 
 fun MealDetailsDto.toMealDetailsEntity(): MealDetailsEntity =
     MealDetailsEntity(
+        id = id,
         name = name,
         area = area,
         tagList = tags?.split(",") ?: listOf(),
@@ -42,11 +44,18 @@ fun MealDetailsDto.toMealDetailsEntity(): MealDetailsEntity =
             .map { pair -> pair.first + " " + pair.second }
             .reduceRight { s, acc -> acc.plus("\n").plus(s) },
         thumbUrl = thumbUrl,
-        youtubeUrl = youtubeUrl
+        youtubeUrl = youtubeUrl,
+        liked = false
     )
 
 fun MealDto.toMealEntity() =
-    MealEntity(id, name, thumbUrl)
+    MealEntity(id, name, thumbUrl, false)
+
+fun MealDbModel.toMealEntity() =
+    MealEntity(id, name, thumbUrl, liked)
+
+fun MealEntity.toMealDbModel(categoryName: String) =
+    MealDbModel(id, name, thumbUrl, categoryName, false)
 
 fun CategoryDto.toCategoryEntity() =
     CategoryEntity(id, name, description, thumbUrl)

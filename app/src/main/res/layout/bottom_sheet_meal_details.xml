@@ -4,24 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/white"
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="250dp"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <View
             android:layout_width="30dp"
             android:layout_height="6dp"
-            android:background="@color/blue_light"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:background="@color/blue_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cuisine"
@@ -31,17 +33,32 @@
             android:paddingStart="@dimen/meal_details_cuisine_text_padding_start"
             android:paddingTop="@dimen/meal_details_cuisine_text_padding_top"
             android:paddingEnd="@dimen/meal_details_cuisine_text_padding_end"
-            android:text="@string/japaneese" />
+            android:text="@string/japaneese"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name"
             style="@style/meal_details_name_text"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/meal_details_name_text_margin_top"
             android:paddingStart="@dimen/meal_details_name_text_padding_start"
             android:paddingEnd="@dimen/meal_details_name_text_padding_end"
-            android:text="@string/teriyaki_chicken_casserole" />
+            android:text="@string/teriyaki_chicken_casserole"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cuisine"
+            app:layout_constraintEnd_toStartOf="@id/mealDetailsLikeButton"/>
+
+        <ImageView
+            android:id="@+id/mealDetailsLikeButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/heart_black"
+            android:contentDescription="@string/like_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvTagList"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTagList"
@@ -50,6 +67,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/name"
             tools:itemCount="10"
             tools:listitem="@layout/tag_item" />
 
@@ -59,7 +77,9 @@
             android:layout_marginTop="@dimen/meal_details_ingridients_margin_top"
             android:background="@color/blue_light"
             android:orientation="vertical"
-            android:paddingTop="@dimen/meal_details_ingridients_padding_top">
+            android:paddingTop="@dimen/meal_details_ingridients_padding_top"
+            app:layout_constraintBottom_toTopOf="@id/youtubePlayer"
+            app:layout_constraintTop_toBottomOf="@id/rvTagList">
 
             <TextView
                 style="@style/meal_details_ingridients_title_text"
@@ -81,11 +101,14 @@
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtubePlayer"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:autoPlay="false" />
+            android:layout_height="wrap_content"
+            app:autoPlay="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

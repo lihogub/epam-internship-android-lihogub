@@ -3,6 +3,7 @@ package ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDeta
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.GetMealDetailsUseCase
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.ResetMealLikeUseCase
@@ -53,13 +54,13 @@ class MealDetailsViewModel(
 
     private fun getMealDetails(mealId: Int) {
         getMealDetailsUseCase(mealId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
             .map {
                 it.toMealDetailsUIModel()
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _mealDetails.postValue(it)
+                _mealDetails.setValue(it)
             }, {
                 it.printStackTrace()
             })

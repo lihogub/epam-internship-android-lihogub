@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.lihogub.epam_internship_android_lihogub.domain.useCase.*
 import ru.lihogub.epam_internship_android_lihogub.presentation.mapper.toCategoryUIModel
@@ -47,7 +48,7 @@ class MealListViewModel(
 
     fun applySort() {
         _mealList.value?.let {
-            _mealList.postValue(
+            _mealList.setValue(
                 when (sortingRule.value) {
                     SortingRule.ASC -> it.sortedBy { meal -> meal.name }
                     SortingRule.DESC -> it.sortedByDescending { meal -> meal.name }
@@ -94,13 +95,13 @@ class MealListViewModel(
 
     private fun getMealList(categoryName: String) {
         getMealListUseCase(categoryName)
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
             .map {
                 it.map { mealEntity -> mealEntity.toMealUIModel() }
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _mealList.postValue(it)
+                _mealList.setValue(it)
             }, {
                 it.printStackTrace()
             })
@@ -108,13 +109,13 @@ class MealListViewModel(
 
     private fun getCategoryList() {
         getCategoryListUseCase()
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
             .map {
                 it.map { categoryEntity -> categoryEntity.toCategoryUIModel() }
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _categoryList.postValue(it)
+                _categoryList.setValue(it)
             }, {
                 it.printStackTrace()
             })

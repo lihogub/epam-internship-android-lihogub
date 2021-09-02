@@ -24,8 +24,6 @@ class MealRepositoryImpl @Inject constructor(
     override fun getMealList(categoryName: String): Single<List<MealEntity>> = mealDao
         .getMealListByCategoryName(categoryName)
         .map { mealDbList -> mealDbList.map { it.toMealEntity() } }
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
         .flatMap { mealEntityListFromDb ->
             if (mealEntityListFromDb.isNotEmpty()) {
                 Log.e("LOL", "Meals fetched from DB")
@@ -62,8 +60,6 @@ class MealRepositoryImpl @Inject constructor(
 
     override fun resetMealLiked(mealId: Int): Completable = updateMealLiked(mealId, false)
 
-    private fun updateMealLiked(mealId: Int, state: Boolean) = mealDao
-        .getMealById(mealId)
-        .map { mealDbModel -> mealDbModel.apply { liked = state } }
-        .flatMapCompletable { mealDbModel -> mealDao.saveMeal(mealDbModel) }
+    private fun updateMealLiked(mealId: Int, liked: Boolean) =
+        mealDao.setLikedByMealId(mealId, liked)
 }

@@ -2,8 +2,8 @@ package ru.lihogub.epam_internship_android_lihogub.data.repository
 
 import android.util.Log
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.lihogub.epam_internship_android_lihogub.data.database.dao.MealDao
 import ru.lihogub.epam_internship_android_lihogub.data.mapper.toMealDbModel
 import ru.lihogub.epam_internship_android_lihogub.data.mapper.toMealDetailsEntity
@@ -21,15 +21,15 @@ class MealRepositoryImpl @Inject constructor(
     private val mealDao: MealDao
 ) : MealRepository {
 
-    override fun getMealList(categoryName: String): Single<List<MealEntity>> = mealDao
+    override fun getMealList(categoryName: String): Flowable<List<MealEntity>> = mealDao
         .getMealListByCategoryName(categoryName)
         .map { mealDbList -> mealDbList.map { it.toMealEntity() } }
         .flatMap { mealEntityListFromDb ->
             if (mealEntityListFromDb.isNotEmpty()) {
                 Log.e("LOL", "Meals fetched from DB")
-                Single.just(mealEntityListFromDb)
+                Flowable.just(mealEntityListFromDb)
             } else {
-                Single.fromCallable {
+                Flowable.fromCallable {
                     Log.e("LOL", "Meals fetched from API")
                     mealApi
                         .getMealList(categoryName)

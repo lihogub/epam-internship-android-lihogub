@@ -46,10 +46,10 @@ class MealDetailsFragment : Fragment() {
     private fun initView() {
         mealDetailsViewModel.mealDetails.observe(viewLifecycleOwner) {
             with(requireActivity()) {
-                findViewById<TextView>(R.id.name).text = it.name
-                findViewById<TextView>(R.id.cuisine).text = it.area
-                findViewById<TextView>(R.id.ingridients).text = it.ingredients
-                findViewById<RecyclerView>(R.id.rvTagList).adapter =
+                findViewById<TextView>(R.id.mealDetailsTextName).text = it.name
+                findViewById<TextView>(R.id.mealDetailsTextCuisine).text = it.area
+                findViewById<TextView>(R.id.mealDetailsTextIngridients).text = it.ingredients
+                findViewById<RecyclerView>(R.id.recyclerViewTagList).adapter =
                     MealDetailsTagAdapter(it.tagList)
 
                 val likeButton = findViewById<ImageView>(R.id.mealDetailsLikeButton)

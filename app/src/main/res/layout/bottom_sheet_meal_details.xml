@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/cuisine"
+            android:id="@+id/mealDetailsTextCuisine"
             style="@style/meal_details_cuisine_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/mealDetailsTextName"
             style="@style/meal_details_name_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:paddingEnd="@dimen/meal_details_name_text_padding_end"
             android:text="@string/teriyaki_chicken_casserole"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cuisine"
+            app:layout_constraintTop_toBottomOf="@id/mealDetailsTextCuisine"
             app:layout_constraintEnd_toStartOf="@id/mealDetailsLikeButton"/>
 
         <ImageView
@@ -58,16 +58,16 @@
             android:contentDescription="@string/like_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rvTagList"/>
+            app:layout_constraintBottom_toTopOf="@id/recyclerViewTagList"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTagList"
+            android:id="@+id/recyclerViewTagList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/mealDetailsTextName"
             tools:itemCount="10"
             tools:listitem="@layout/tag_item" />
 
@@ -79,7 +79,7 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/meal_details_ingridients_padding_top"
             app:layout_constraintBottom_toTopOf="@id/youtubePlayer"
-            app:layout_constraintTop_toBottomOf="@id/rvTagList">
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewTagList">
 
             <TextView
                 style="@style/meal_details_ingridients_title_text"
@@ -90,7 +90,7 @@
                 android:text="@string/ingridients" />
 
             <TextView
-                android:id="@+id/ingridients"
+                android:id="@+id/mealDetailsTextIngridients"
                 style="@style/meal_details_ingridients_content_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -24,4 +24,5 @@
     <string name="foods">Блюда</string>
     <string name="category_image">Category Image</string>
     <string name="meal_image">Meal image</string>
+    <string name="like_button">like button</string>
 </resources>

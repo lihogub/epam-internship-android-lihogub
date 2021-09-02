@@ -5,7 +5,9 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.lihogub.epam_internship_android_lihogub.di.module.*
+import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.di.MealDetailsModule
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealDetails.view.MealDetailsFragment
+import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.di.MealListModule
 import ru.lihogub.epam_internship_android_lihogub.presentation.feature.mealList.view.MealListFragment
 import javax.inject.Singleton
 

@@ -1,101 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MealDetailsFragment"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <ImageView
+        android:id="@+id/mealDetailsImageTop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:contentDescription="@string/meal_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/chicken_details" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <include layout="@layout/bottom_sheet_meal_details" />
 
-            <ImageView
-                android:id="@+id/meal_details_image_top"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/meal_details_top_image_height"
-                android:scaleType="centerCrop"
-                android:layout_gravity="top"
-                android:src="@drawable/chicken_details" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white">
-
-                <TextView
-                    android:id="@+id/cuisine"
-                    android:paddingTop="@dimen/meal_details_cuisine_text_padding_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/meal_details_cuisine_text_padding_start"
-                    android:paddingEnd="@dimen/meal_details_cuisine_text_padding_end"
-                    style="@style/meal_details_cuisine_text"
-                    android:text="@string/japaneese"/>
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/meal_details_name_text_margin_top"
-                    android:paddingStart="@dimen/meal_details_name_text_padding_start"
-                    android:paddingEnd="@dimen/meal_details_name_text_padding_end"
-                    style="@style/meal_details_name_text"
-                    android:text="@string/teriyaki_chicken_casserole"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/tag_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="12dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="10"
-                    tools:listitem="@layout/tag_item"/>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/meal_details_ingridients_margin_top"
-                    android:paddingTop="@dimen/meal_details_ingridients_padding_top"
-                    android:background="@color/blue_light">
-
-                    <TextView
-                        android:paddingStart="@dimen/meal_details_ingridients_title_text_padding_start"
-                        android:paddingEnd="@dimen/meal_details_ingridients_title_text_padding_end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/meal_details_ingridients_title_text"
-                        android:text="@string/ingridients"/>
-
-                    <TextView
-                        android:id="@+id/ingridients"
-                        android:layout_margin="@dimen/meal_details_ingridients_content_text_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/meal_details_ingridients_content_text"
-                        android:text="@string/chicken_recipe"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/meal_details_image_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/chicken_preview_video"
-                android:scaleType="centerCrop"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

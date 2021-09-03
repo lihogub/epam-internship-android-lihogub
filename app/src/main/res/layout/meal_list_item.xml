@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_item"
+    android:id="@+id/mealListItem"
     style="@style/meal_vertical_list_item"
-    android:layout_margin="@dimen/meal_list_item_margin"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:layout_margin="@dimen/meal_list_item_margin">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/mealListItemImageCardView"
         android:layout_width="@dimen/meal_vertical_list_item_image_width"
         android:layout_height="@dimen/meal_vertical_list_item_image_height"
-        android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
         android:layout_gravity="center"
-        app:cardCornerRadius="@dimen/meal_list_item_image_corner_radius">
+        android:layout_marginEnd="@dimen/meal_vertical_list_item_image_margin_end"
+        app:cardCornerRadius="@dimen/meal_list_item_image_corner_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/list_item_image"
+            android:id="@+id/mealListItemImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:background="@drawable/meal_preview" />
+            android:background="@drawable/meal_preview"
+            android:contentDescription="@string/meal_image"
+            android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/list_item_text"
+        android:id="@+id/mealListItemText"
         style="@style/meal_vertical_list_item_text"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/meal_vertical_list_item_text_height"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
         android:layout_gravity="center_vertical"
-        android:text="@string/meal_text" />
+        android:text="@string/meal_text"
+        app:layout_constraintStart_toEndOf="@id/mealListItemImageCardView"
+        app:layout_constraintEnd_toStartOf="@id/mealListItemLikeButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/mealListItemLikeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/heart_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/like_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
